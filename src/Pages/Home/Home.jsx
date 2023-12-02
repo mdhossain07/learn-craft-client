@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import HeaderSlider from "../../Components/HeaderSlider/HeaderSlider";
+import Collaboration from "../../Components/Collaboration/Collaboration";
 
 const Home = () => {
   useEffect(() => {
@@ -9,6 +10,7 @@ const Home = () => {
   return (
     <div>
       <HeaderSlider />
+      <Collaboration />
     </div>
   );
 };

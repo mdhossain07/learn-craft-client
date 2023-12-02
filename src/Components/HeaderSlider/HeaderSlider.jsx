@@ -16,11 +16,11 @@ const HeaderSlider = () => {
               facilis veritatis? Necessitatibus?
             </p>
             <div className="flex justify-center md:justify-start gap-10">
-              <button className="bg-green-500 px-5 py-3 rounded-md cursor-pointer">
+              <button className="bg-[#29ADB2] px-5 py-3 rounded-full cursor-pointer">
                 Sign Up For Free
               </button>
 
-              <button className="bg-green-500 px-5 py-3 rounded-md cursor-pointer">
+              <button className="border-2 border-white text-white px-5 py-3 rounded-full cursor-pointer">
                 Enroll Now
               </button>
             </div>

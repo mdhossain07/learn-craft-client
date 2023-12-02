@@ -54,7 +54,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="flex justify-around items-center relative py-4 md:py-6">
+      <div className="flex justify-around items-center relative py-4 md:py-6 ">
         <div className="">
           <Link to="/">
             <h2 className="text-3xl font-semibold">Learn Craft</h2>
@@ -66,7 +66,9 @@ const Navbar = () => {
         </div>
 
         <Link to="/login">
-          <button className="bg-gray-600 px-5 py-3 rounded-lg">Login</button>
+          <button className="bg-[#0C356A]  px-5 py-3 rounded-full">
+            Login
+          </button>
         </Link>
 
         {/* {user && user?.email ? (
@@ -106,18 +108,18 @@ const Navbar = () => {
       <div className="md:hidden absolute top-8 ml-5">
         {isOpen ? (
           <div onClick={toggleNav}>
-            <FaTimes className="text-2xl cursor-pointer" />
+            <FaTimes className="text-2xl cursor-pointer ml-5" />
           </div>
         ) : (
           <div onClick={toggleNav}>
-            <FaAlignJustify className="text-2xl cursor-pointer" />
+            <FaAlignJustify className="text-2xl cursor-pointer ml-5" />
           </div>
         )}
       </div>
 
       <div className="">
         {isOpen && (
-          <div className="flex flex-col gap-5 py-5 ml-5 md:hidden">
+          <div className="flex flex-col gap-5 py-5 px-10  md:hidden ">
             {navItems}
           </div>
         )}
