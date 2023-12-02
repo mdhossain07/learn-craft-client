@@ -5,8 +5,8 @@ const HeaderSlider = () => {
   return (
     <div className="min-h-[calc(100vh-97px)] bg-[#0766AD]">
       <Container>
-        <div className="flex flex-col md:flex-row justify-between items-center gap-5 md:gap-16 py-5 md:py-16">
-          <div className="text-white text-center md:text-left md:w-1/2 my-5 space-y-5">
+        <div className="flex flex-col md:flex-col lg:flex-row justify-between items-center gap-5 md:gap-16 py-5 md:py-16">
+          <div className="text-white text-center lg:text-left lg:w-1/2 my-5 space-y-5">
             <h2 className="text-5xl font-medium">
               Your Online Training Journey Begins Here
             </h2>
@@ -15,7 +15,7 @@ const HeaderSlider = () => {
               est officiis tempora similique maiores incidunt voluptatem eum
               facilis veritatis? Necessitatibus?
             </p>
-            <div className="flex justify-center md:justify-start gap-10">
+            <div className="flex justify-center lg:justify-start gap-10">
               <button className="bg-[#29ADB2] px-5 py-3 rounded-full cursor-pointer">
                 Sign Up For Free
               </button>

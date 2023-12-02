@@ -14,7 +14,7 @@ const Collaboration = () => {
         <h2 className="text-center">
           Trusted by 50+ companies & thousands of learners around the world
         </h2>
-        <div className="flex gap-10 items-center px-5 justify-center w-9/12 mx-auto overflow-x-auto md:overflow-visible">
+        <div className="flex gap-10 items-center px-5 justify-center w-9/12 mx-auto overflow-x-auto md:overflow-x-auto lg:overflow-visible">
           <img className="w-[120px] h-[100px]" src={scb} alt="" />
           <img className="w-[150px] h-[50px]" src={una} alt="" />
           <img className="w-[150px] h-[100px]" src={samsung} alt="" />

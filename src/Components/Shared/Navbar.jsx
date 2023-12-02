@@ -57,7 +57,9 @@ const Navbar = () => {
       <div className="flex justify-around items-center relative py-4 md:py-6 ">
         <div className="">
           <Link to="/">
-            <h2 className="text-3xl font-semibold">Learn Craft</h2>
+            <h2 className="text-3xl font-semibold ml-16 lg:ml-2">
+              Learn Craft
+            </h2>
           </Link>
         </div>
 
