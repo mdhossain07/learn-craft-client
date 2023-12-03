@@ -3,6 +3,8 @@ import MainLayout from "../Layout/MainLayout";
 import Home from "../Pages/Home/Home";
 import AllClasses from "../Pages/AllClasses/AllClasses";
 import Teach from "../Pages/Teach/Teach";
+import Register from "../Pages/Register/Register";
+import Login from "../Pages/Login/Login";
 
 const routes = createBrowserRouter([
   {
@@ -23,6 +25,14 @@ const routes = createBrowserRouter([
         element: <Teach />,
       },
     ],
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 

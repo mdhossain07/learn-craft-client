@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Slider1 from "../../assets/images/Header Slider 1.jpg";
 import Container from "../Shared/Container";
 
@@ -16,9 +17,11 @@ const HeaderSlider = () => {
               facilis veritatis? Necessitatibus?
             </p>
             <div className="flex justify-center lg:justify-start gap-10">
-              <button className="bg-[#29ADB2] px-5 py-3 rounded-full cursor-pointer">
-                Sign Up For Free
-              </button>
+              <Link to="/register">
+                <button className="bg-[#29ADB2] px-5 py-3 rounded-full cursor-pointer">
+                  Sign Up For Free
+                </button>
+              </Link>
 
               <button className="border-2 border-white text-white px-5 py-3 rounded-full cursor-pointer">
                 Enroll Now

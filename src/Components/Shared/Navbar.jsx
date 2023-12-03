@@ -1,13 +1,36 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FaTimes, FaAlignJustify } from "react-icons/fa";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+import { Avatar, Box, IconButton, Menu, MenuItem } from "@mui/material";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { user, logOut } = useAuth();
+  const navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  console.log(user);
 
   const toggleNav = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleSignOut = () => {
+    logOut().then(() => {
+      toast.success("User Logged Out!");
+      navigate("/");
+    });
   };
 
   useEffect(() => {
@@ -47,7 +70,7 @@ const Navbar = () => {
         className={({ isActive }) => (isActive ? "text-[#F4F27E]" : "")}
         to="/teach"
       >
-        Teach on Learn Craft
+        Teach on LEARN CRAFT
       </NavLink>
     </>
   );
@@ -67,54 +90,56 @@ const Navbar = () => {
           <div className="flex gap-5">{navItems}</div>
         </div>
 
-        <Link to="/login">
-          <button className="bg-[#0C356A]  px-5 py-3 rounded-full">
-            Login
-          </button>
-        </Link>
-
-        {/* {user && user?.email ? (
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
+        {user?.email ? (
+          <div>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                textAlign: "center",
+              }}
             >
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                />
-              </div>
-            </div>
-            <ul className="mt-4 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 text-black">
-              <li>
-                <a className="justify-between">Profile</a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-
-              <div onClick={handleSignOut}>
-                <li>
-                  <Link>Logout</Link>
-                </li>
-              </div>
-            </ul>
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={open ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+              >
+                <Avatar sx={{ width: 42, height: 42 }}>
+                  <img src={user?.photoURL} alt="" />
+                </Avatar>
+              </IconButton>
+            </Box>
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+            >
+              <MenuItem onClick={handleClose}>Dashboard</MenuItem>
+              <MenuItem onClick={handleSignOut}>LogOut</MenuItem>
+            </Menu>
           </div>
         ) : (
-         
-        )} */}
+          <Link to="/login">
+            <button className="bg-[#0C356A]  px-5 py-3 rounded-full">
+              Login
+            </button>
+          </Link>
+        )}
       </div>
 
       <div className="md:hidden absolute top-8 ml-5">
         {isOpen ? (
           <div onClick={toggleNav}>
-            <FaTimes className="text-2xl cursor-pointer ml-5" />
+            <FaTimes className="text-2xl cursor-pointer ml-10 " />
           </div>
         ) : (
           <div onClick={toggleNav}>
-            <FaAlignJustify className="text-2xl cursor-pointer ml-5" />
+            <FaAlignJustify className="text-2xl cursor-pointer ml-10" />
           </div>
         )}
       </div>
