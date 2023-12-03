@@ -119,7 +119,9 @@ const Navbar = () => {
               onClose={handleClose}
               onClick={handleClose}
             >
-              <MenuItem onClick={handleClose}>Dashboard</MenuItem>
+              <Link to="/teacher/add-class">
+                <MenuItem onClick={handleClose}>Dashboard</MenuItem>
+              </Link>
               <MenuItem onClick={handleSignOut}>LogOut</MenuItem>
             </Menu>
           </div>
@@ -132,14 +134,14 @@ const Navbar = () => {
         )}
       </div>
 
-      <div className="md:hidden absolute top-8 ml-5">
+      <div className="md:hidden absolute top-8 ml-10">
         {isOpen ? (
           <div onClick={toggleNav}>
-            <FaTimes className="text-2xl cursor-pointer ml-10 " />
+            <FaTimes className="text-2xl cursor-pointer" />
           </div>
         ) : (
           <div onClick={toggleNav}>
-            <FaAlignJustify className="text-2xl cursor-pointer ml-10" />
+            <FaAlignJustify className="text-2xl cursor-pointer" />
           </div>
         )}
       </div>
