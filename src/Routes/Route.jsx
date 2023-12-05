@@ -9,6 +9,8 @@ import TeacherDashboardLayout from "../Layout/TeacherDashboardLayout";
 import AddClass from "../Pages/Dashboard/Teacher/AddClass/AddClass";
 import TeacherClass from "../Pages/Dashboard/Teacher/TeacherClass/TeacherClass";
 import TeacherProfile from "../Pages/Dashboard/Teacher/TeacherProfile/TeacherProfile";
+import UpdateClass from "../Pages/Dashboard/Teacher/UpdateClass/UpdateClass";
+import ClassDetails from "../Pages/Dashboard/Teacher/ClassDetails/ClassDetails";
 
 const routes = createBrowserRouter([
   {
@@ -55,6 +57,14 @@ const routes = createBrowserRouter([
       {
         path: "profile",
         element: <TeacherProfile />,
+      },
+      {
+        path: "update-class/:id",
+        element: <UpdateClass />,
+      },
+      {
+        path: "class/:id",
+        element: <ClassDetails />,
       },
     ],
   },

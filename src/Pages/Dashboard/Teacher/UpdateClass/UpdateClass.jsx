@@ -1,17 +1,28 @@
-import { useFormik } from "formik";
-import useAuth from "../../../../hooks/useAuth";
-import useAxiosPublic from "../../../../hooks/useAxiosPublic";
-import { useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+import useAuth from "../../../../hooks/useAuth";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useFormik } from "formik";
+import { useQuery } from "@tanstack/react-query";
 
 const image_api_key = import.meta.env.VITE_Image_API_key;
 const image_hosting_key = `https://api.imgbb.com/1/upload?key=${image_api_key}`;
 
-const AddClass = () => {
+const UpdateClass = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { data: classInfo } = useQuery({
+    queryKey: ["classInfo"],
+    initialData: {},
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/api/v1/class/${id}`);
+      return res.data;
+    },
+  });
 
   const [myImage, setMyImage] = useState("");
 
@@ -29,27 +40,23 @@ const AddClass = () => {
         },
       });
 
-      const classInfo = {
+      const updatedClassInfo = {
         title: values.title,
         price: values.price,
         description: values.description,
         image: res.data.data.display_url,
-        instructor_name: user?.displayName,
-        instructor_email: user?.email,
       };
 
-      axiosPublic.post("/api/v1/add-class", classInfo).then((res) => {
-        if (res.data.insertedId) {
-          toast.success("Class Added Successfully!");
-          navigate("/teacher/my-class");
-        }
+      axiosPublic.patch(`/api/v1/class/${id}`, updatedClassInfo).then((res) => {
+        console.log(res.data);
+        toast.success("Class information are updated.");
+        navigate("/teacher/my-class");
       });
     },
   });
-
   return (
     <div>
-      <h2>Add Class</h2>
+      <h2>Update Class</h2>
 
       <form
         className="bg-[#F3F3F3] font-medium text-[#444444] mt-10 p-10 lg:w-1/2 mx-auto space-y-3"
@@ -63,6 +70,7 @@ const AddClass = () => {
           className="indent-2 w-full py-2 my-2"
           name="title"
           onChange={formik.handleChange}
+          placeholder={classInfo.title}
           value={formik.values.title}
         />
         <div className="flex justify-between gap-10">
@@ -75,6 +83,7 @@ const AddClass = () => {
               className="indent-2 w-full py-2 my-2"
               name="price"
               onChange={formik.handleChange}
+              placeholder={classInfo.price}
               value={formik.values.price}
             />
           </div>
@@ -87,6 +96,7 @@ const AddClass = () => {
           cols="50"
           rows="5"
           onChange={formik.handleChange}
+          placeholder={classInfo.description}
           value={formik.values.description}
         ></textarea>
         <br />
@@ -127,11 +137,11 @@ const AddClass = () => {
         <input
           className="cursor-pointer bg-blue-500 text-white p-3 rounded-lg"
           type="submit"
-          value="Add Class"
+          value="Update Class"
         />
       </form>
     </div>
   );
 };
 
-export default AddClass;
+export default UpdateClass;

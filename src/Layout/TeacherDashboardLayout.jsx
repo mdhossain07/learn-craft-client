@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 const TeacherDashboardLayout = () => {
   return (
     <div className="flex min-h-screen">
-      <div className="w-1/3 bg-red-500 ">
+      <div className="w-1/3 bg-gray-200 p-2">
         <Link to="/teacher/add-class">
           <h2>Add Class</h2>
         </Link>
@@ -17,7 +17,7 @@ const TeacherDashboardLayout = () => {
         </Link>
       </div>
 
-      <div className="bg-green-500 w-full">
+      <div className="w-full p-3">
         <Outlet />
       </div>
     </div>

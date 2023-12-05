@@ -20,8 +20,6 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
-  console.log(user);
-
   const toggleNav = () => {
     setIsOpen(!isOpen);
   };
