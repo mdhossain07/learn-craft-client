@@ -23,9 +23,11 @@ const HeaderSlider = () => {
                 </button>
               </Link>
 
-              <button className="border-2 border-white text-white px-5 py-3 rounded-full cursor-pointer">
-                Enroll Now
-              </button>
+              <Link to="/all-classes">
+                <button className="border-2 border-white text-white px-5 py-3 rounded-full cursor-pointer">
+                  Enroll Now
+                </button>
+              </Link>
             </div>
           </div>
           <div className="md:w-9/12">

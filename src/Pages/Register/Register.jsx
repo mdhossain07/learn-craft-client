@@ -37,27 +37,32 @@ const Register = () => {
       email: "",
       photo: "",
       password: "",
+      role: "",
     },
     validate,
     onSubmit: (values) => {
+      const userInfo = {
+        name: values.name,
+        email: values.email,
+        photo_url: values.photo,
+        role: values.role,
+      };
+
       createUser(values.email, values.password)
         .then(() => {
-          updateUserProfile(values.name, values.photo).then(() => {
-            const userInfo = {
-              name: values.name,
-              email: values.email,
-              photo_url: values.photo,
-              role: values.role,
-            };
-
-            axiosPublic.post("/api/v1/create-user", userInfo).then((res) => {
-              console.log(res.data);
-              if (res.data.insertedId) {
-                toast.success("New user created");
+          updateUserProfile(values.name, values.photo)
+            .then(() => {
+              axiosPublic.post("/api/v1/create-user", userInfo).then((res) => {
+                console.log(res.data);
+                if (res.data.insertedId) {
+                  toast.success("New user created");
+                }
                 navigate("/");
-              }
+              });
+            })
+            .catch((err) => {
+              toast.error(err);
             });
-          });
         })
         .catch((err) => {
           toast.error(err);
@@ -102,16 +107,16 @@ const Register = () => {
 
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  Select Your Role
+                  Your Role
                 </label>
                 <select
                   name="role"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   required
-                  defaultValue="default"
                   onChange={formik.handleChange}
                   value={formik.values.role}
                 >
+                  <option value={"default"}>Select Your Role</option>
                   <option value={"teacher"}>Teacher</option>
                   <option value={"student"}>Student</option>
                 </select>

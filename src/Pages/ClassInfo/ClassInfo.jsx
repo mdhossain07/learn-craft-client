@@ -3,6 +3,8 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useParams } from "react-router-dom";
 import Container from "../../Components/Shared/Container";
 
+import { StarRating } from "react-star-rating-input";
+
 const ClassInfo = () => {
   const axiosPublic = useAxiosPublic();
   const { id } = useParams();
@@ -36,7 +38,11 @@ const ClassInfo = () => {
       <div className="flex mt-10 flex-col lg:flex-row gap-5 bg-black p-10 text-white">
         <div className="w-1/2 text-sm text-gray-400 space-y-2">
           <h2 className="text-xl font-sembold text-white">Course Info</h2>
-          <p>Rating: 5</p>
+          <div className="flex justify-between">
+            <p>Rating: </p>
+            <StarRating value={5} size={24} />
+          </div>
+
           <p>Level: Beginner</p>
           <p>Duration: 1hr 30 mints</p>
           <p>Price: {data.price}</p>
