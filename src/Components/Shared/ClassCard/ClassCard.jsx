@@ -24,9 +24,6 @@ const classCard = ({ item }) => {
         <p className="text-gray-800 text-sm font-medium">
           Instructor Name: {item.instructor_name}
         </p>
-        <p className="text-gray-800 text-sm font-medium">
-          Instructor Email: {item.instructor_email}
-        </p>
       </div>
       <div className="flex flex-row justify-center my-4  gap-5">
         <Link to={`/teacher/update-class/${item._id}`}>

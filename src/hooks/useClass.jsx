@@ -11,7 +11,7 @@ const useClass = () => {
     queryKey: ["teacher-class"],
     initialData: [],
     queryFn: async () => {
-      const res = await axiosPublic.get("/api/v1/teacher-classes");
+      const res = await axiosPublic.get("/api/v1/classes");
       return res.data;
     },
   });

@@ -4,11 +4,13 @@ import { FaTimes, FaAlignJustify } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { Avatar, Box, IconButton, Menu, MenuItem } from "@mui/material";
+import useProfile from "../../hooks/useProfile";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { user, logOut } = useAuth();
+  const { userInfo } = useProfile();
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -117,9 +119,24 @@ const Navbar = () => {
               onClose={handleClose}
               onClick={handleClose}
             >
-              <Link to="/teacher/add-class">
-                <MenuItem onClick={handleClose}>Dashboard</MenuItem>
-              </Link>
+              {userInfo && userInfo?.admin ? (
+                <Link to="/admin/users">
+                  <MenuItem onClick={handleClose}>Dashboard</MenuItem>
+                </Link>
+              ) : (
+                <div>
+                  {userInfo && userInfo?.role === "teacher" ? (
+                    <Link to="/teacher/add-class">
+                      <MenuItem onClick={handleClose}>Dashboard</MenuItem>
+                    </Link>
+                  ) : (
+                    <Link to="/student/enroll-class">
+                      <MenuItem onClick={handleClose}>Dashboard</MenuItem>
+                    </Link>
+                  )}
+                </div>
+              )}
+
               <MenuItem onClick={handleSignOut}>LogOut</MenuItem>
             </Menu>
           </div>
