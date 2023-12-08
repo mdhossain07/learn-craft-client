@@ -18,7 +18,9 @@ const classCard = ({ item }) => {
           <p className="text-gray-800 text-sm font-medium">
             Course Price: ${item.price}
           </p>
-          <p className="text-gray-800 text-sm font-medium">Status: Pending</p>
+          <p className="text-gray-800 text-sm font-medium">
+            Status: {item?.status}
+          </p>
         </div>
 
         <p className="text-gray-800 text-sm font-medium">
@@ -32,9 +34,11 @@ const classCard = ({ item }) => {
 
         <Delete id={item._id} />
 
-        <Link to={`/teacher/class/${item._id}`}>
-          <Details />
-        </Link>
+        {item?.status === "approved" ? (
+          <Link to={`/teacher/class/${item._id}`}>
+            <Details />
+          </Link>
+        ) : null}
       </div>
     </div>
   );

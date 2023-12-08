@@ -8,7 +8,7 @@ const useClass = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["teacher-class"],
+    queryKey: ["all-class"],
     initialData: [],
     queryFn: async () => {
       const res = await axiosPublic.get("/api/v1/classes");

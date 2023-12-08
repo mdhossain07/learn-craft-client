@@ -16,14 +16,19 @@ const Reject = ({ item, setStatus }) => {
       confirmButtonText: "Yes, reject!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.patch(`/api/v1/teacher-reject/${item?._id}`).then((res) => {
+        axiosSecure.patch(`/api/v1/reject/${item?._id}`).then((res) => {
           if (res.data.modifiedCount > 0) {
             Swal.fire({
               title: "Done!",
               text: `You rejected the request`,
               icon: "success",
             });
-            setStatus(item?.status);
+            // axiosSecure.get(`/api/v1/teacher/${item?._id}`).then((res) => {
+            //   console.log(res.data);
+            //   if (res.data.status === "rejected") {
+            //     setStatus(res.data.status);
+            //   }
+            // });
           }
         });
       }

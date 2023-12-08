@@ -29,7 +29,7 @@ const Classes = () => {
                 alt={item.title}
               />
               <h2 className="text-2xl font-semibold">{item.title}</h2>
-              <p>{item?.description.slice(0, 50)}....</p>
+              <p>{item?.description.slice(0, 30)}....</p>
               <div className="flex gap-10">
                 <p className="text-gray-800 text-sm font-medium">
                   Course Price: ${item.price}

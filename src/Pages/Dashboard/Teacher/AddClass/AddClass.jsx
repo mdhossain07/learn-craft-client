@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -14,6 +14,7 @@ const AddClass = () => {
   const navigate = useNavigate();
 
   const [myImage, setMyImage] = useState("");
+  const [status, setStatus] = useState("");
 
   const formik = useFormik({
     initialValues: {
@@ -47,89 +48,100 @@ const AddClass = () => {
     },
   });
 
+  useEffect(() => {
+    axiosPublic.get(`/api/v1/approved-user/${user?.email}`).then((res) => {
+      setStatus(res.data.status);
+    });
+  }, [axiosPublic, user?.email]);
+
   return (
     <div>
       <h2>Add Class</h2>
-
-      <form
-        className="bg-[#F3F3F3] font-medium text-[#444444] mt-10 p-10 lg:w-1/2 mx-auto space-y-3"
-        onSubmit={formik.handleSubmit}
-      >
-        <label htmlFor="">Course Title *</label>
-        <br />
-        <input
-          type="text"
-          required
-          className="indent-2 w-full py-2 my-2"
-          name="title"
-          onChange={formik.handleChange}
-          value={formik.values.title}
-        />
-        <div className="flex justify-between gap-10">
-          <div className="flex-1">
-            <label htmlFor="">Course Price *</label>
-            <br />
-            <input
-              type="text"
-              required
-              className="indent-2 w-full py-2 my-2"
-              name="price"
-              onChange={formik.handleChange}
-              value={formik.values.price}
-            />
+      {status === "rejected" ? (
+        <h2 className="text-3xl font-semibold">
+          Your Request as an Teacher has been rejected
+        </h2>
+      ) : (
+        <form
+          className="bg-[#F3F3F3] font-medium text-[#444444] mt-10 p-10 lg:w-1/2 mx-auto space-y-3"
+          onSubmit={formik.handleSubmit}
+        >
+          <label htmlFor="">Course Title *</label>
+          <br />
+          <input
+            type="text"
+            required
+            className="indent-2 w-full py-2 my-2"
+            name="title"
+            onChange={formik.handleChange}
+            value={formik.values.title}
+          />
+          <div className="flex justify-between gap-10">
+            <div className="flex-1">
+              <label htmlFor="">Course Price *</label>
+              <br />
+              <input
+                type="text"
+                required
+                className="indent-2 w-full py-2 my-2"
+                name="price"
+                onChange={formik.handleChange}
+                value={formik.values.price}
+              />
+            </div>
           </div>
-        </div>
-        <label htmlFor="">Course Description *</label>
-        <br />
-        <textarea
-          className="my-2 w-full indent-2 p-3"
-          name="description"
-          cols="50"
-          rows="5"
-          onChange={formik.handleChange}
-          value={formik.values.description}
-        ></textarea>
-        <br />
+          <label htmlFor="">Course Description *</label>
+          <br />
+          <textarea
+            className="my-2 w-full indent-2 p-3"
+            name="description"
+            cols="50"
+            rows="5"
+            onChange={formik.handleChange}
+            value={formik.values.description}
+          ></textarea>
+          <br />
 
-        <input
-          type="file"
-          className="w-full max-w-xs"
-          name="image"
-          required
-          onBlur={(e) => {
-            setMyImage(e.currentTarget.files);
-          }}
-        />
-        <br />
-        <hr />
-        <h2 className="text-blue-500 font-semibold"> Instructor Info</h2>
+          <input
+            type="file"
+            className="w-full max-w-xs"
+            name="image"
+            // required
+            onBlur={(e) => {
+              setMyImage(e.currentTarget.files);
+            }}
+          />
+          <br />
+          <hr />
+          <h2 className="text-blue-500 font-semibold"> Instructor Info</h2>
 
-        <div className="flex justify-between gap-10">
-          <div className="flex-1">
-            <label htmlFor="">Instructor Name</label>
-            <input
-              className="w-full py-2 my-2"
-              defaultValue={user?.displayName}
-              disabled
-            />
+          <div className="flex justify-between gap-10">
+            <div className="flex-1">
+              <label htmlFor="">Instructor Name</label>
+              <input
+                className="w-full py-2 my-2"
+                defaultValue={user?.displayName}
+                disabled
+              />
+            </div>
+            <div className="flex-1">
+              <label htmlFor="">Instructor Email</label>
+              <br />
+              <input
+                className="py-2 my-2 w-full"
+                defaultValue={user?.email}
+                disabled
+              />
+            </div>
           </div>
-          <div className="flex-1">
-            <label htmlFor="">Instructor Email</label>
-            <br />
-            <input
-              className="py-2 my-2 w-full"
-              defaultValue={user?.email}
-              disabled
-            />
-          </div>
-        </div>
 
-        <input
-          className="cursor-pointer bg-blue-500 text-white p-3 rounded-lg"
-          type="submit"
-          value="Add Class"
-        />
-      </form>
+          <input
+            className="cursor-pointer bg-blue-500 text-white p-3 rounded-lg"
+            type="submit"
+            value="Add Class"
+          />
+        </form>
+      )}
     </div>
   );
 };

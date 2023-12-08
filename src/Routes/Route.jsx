@@ -19,6 +19,9 @@ import Classes from "../Pages/Classes/Classes";
 import AllClasses from "../Pages/Dashboard/Admin/AllClasses/AllClasses";
 import ClassInfo from "../Pages/ClassInfo/ClassInfo";
 import PrivateRoute from "./PrivateRoute";
+import MyCart from "../Pages/Dashboard/Student/MyCart/MyCart";
+import Payment from "../Pages/Dashboard/Student/Payment/Payment";
+import PaymentHistory from "../Pages/Dashboard/Student/Payment/PaymentHistory";
 
 const routes = createBrowserRouter([
   {
@@ -47,6 +50,22 @@ const routes = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ClassInfo />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/payment",
+        element: (
+          <PrivateRoute>
+            <Payment />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/payment-history",
+        element: (
+          <PrivateRoute>
+            <PaymentHistory />
           </PrivateRoute>
         ),
       },
@@ -95,6 +114,14 @@ const routes = createBrowserRouter([
       {
         path: "enroll-class",
         element: <EnrollClass />,
+      },
+      {
+        path: "my-cart",
+        element: (
+          <PrivateRoute>
+            <MyCart />
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -8,6 +8,10 @@ const StudentDashboardLayout = () => {
           <h2>My Enroll Class</h2>
         </Link>
 
+        <Link to="/student/my-cart">
+          <h2>My Cart</h2>
+        </Link>
+
         {/* <Link to="/teacher/profile">
           <h2>Student Profile</h2>
         </Link> */}

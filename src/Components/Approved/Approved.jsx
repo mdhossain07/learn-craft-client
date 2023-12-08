@@ -16,21 +16,24 @@ const Approved = ({ item, status, setStatus }) => {
       confirmButtonText: "Yes, approve!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure
-          .patch(`/api/v1/teacher-approve/${item?._id}`)
-          .then((res) => {
-            if (res.data.modifiedCount > 0) {
-              Swal.fire({
-                title: "Done!",
-                text: `You approved the request the request`,
-                icon: "success",
-              });
-              setStatus(item?.status);
-            }
-          });
+        axiosSecure.patch(`/api/v1/approve/${item?._id}`).then((res) => {
+          if (res.data.modifiedCount > 0) {
+            Swal.fire({
+              title: "Done!",
+              text: `You approved the request the request`,
+              icon: "success",
+            });
+            // axiosSecure.get(`/api/v1/teacher/${item?._id}`).then((res) => {
+            //   if (res.data.status === "approved") {
+            //     setStatus(res.data.status);
+            //   }
+            // });
+          }
+        });
       }
     });
   };
+
   return (
     <div>
       <button

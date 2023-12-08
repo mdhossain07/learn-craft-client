@@ -8,9 +8,9 @@ const TeacherRequest = () => {
   const axiosSecure = useAxiosSecure();
   const [status, setStatus] = useState("pending");
 
-  console.log(status);
+  // console.log(status);
 
-  const { data } = useQuery({
+  const { data: teachers } = useQuery({
     queryKey: ["teacher-request"],
     initialData: [],
     queryFn: async () => {
@@ -60,11 +60,17 @@ const TeacherRequest = () => {
                 <th scope="col" className="px-6 py-3">
                   Image
                 </th>
+
                 <th scope="col" className="px-6 py-3">
-                  Title
+                  Name
                 </th>
+
                 <th scope="col" className="px-6 py-3">
                   Email
+                </th>
+
+                <th scope="col" className="px-6 py-3">
+                  Title
                 </th>
 
                 <th scope="col" className="px-6 py-3">
@@ -79,7 +85,7 @@ const TeacherRequest = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.map((item) => (
+              {teachers.map((item) => (
                 <tr
                   key={item._id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -95,11 +101,13 @@ const TeacherRequest = () => {
                     />
                   </th>
 
-                  <td className="text-base font-semibold">{item?.title}</td>
+                  <td className="text-black font-semibold">{item?.name}</td>
 
                   <td className="px-6 py-4">
                     <h2>{item?.email}</h2>
                   </td>
+
+                  <td className="text-base ">{item?.title}</td>
 
                   {!item?.status ? (
                     <td className="px-6 py-4">
