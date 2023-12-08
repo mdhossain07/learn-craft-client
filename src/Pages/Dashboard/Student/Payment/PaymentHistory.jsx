@@ -15,10 +15,24 @@ const PaymentHistory = () => {
     },
   });
 
-  console.log(payments);
+  const [first] = payments;
+  console.log(first?.classIds);
+
+  const { data: courseInfo } = useQuery({
+    queryKey: ["courseInfo", first?.classIds],
+    initialData: {},
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/api/v1/class/${first?.classIds}`);
+      return res.data;
+    },
+  });
+
+  console.log(courseInfo);
+
   return (
     <div>
       <h2>Payment History: {payments?.length}</h2>
+      <img src={courseInfo.image} alt="" />
     </div>
   );
 };

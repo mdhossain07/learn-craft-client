@@ -14,8 +14,6 @@ const MyCart = () => {
     }
   }, 0);
 
-  console.log(carts);
-
   return (
     <div>
       <h2>My Cart</h2>

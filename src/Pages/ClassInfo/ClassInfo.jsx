@@ -5,7 +5,6 @@ import Container from "../../Components/Shared/Container";
 
 import { StarRating } from "react-star-rating-input";
 import useAuth from "../../hooks/useAuth";
-import toast from "react-hot-toast";
 
 const ClassInfo = () => {
   const axiosPublic = useAxiosPublic();
@@ -22,8 +21,6 @@ const ClassInfo = () => {
     },
   });
 
-  console.log(data);
-
   const handleCart = () => {
     const cartInfo = {
       title: data?.title,
@@ -34,8 +31,7 @@ const ClassInfo = () => {
       instructor_name: data?.instructor_name,
     };
     axiosPublic.post("/api/v1/add-cart", cartInfo).then(() => {
-      toast.success("course added to the cart");
-      navigate("/all-classes");
+      navigate("/payment");
     });
   };
 
@@ -50,15 +46,11 @@ const ClassInfo = () => {
           <p>Get industry recognized Course Certificates</p>
           <p>Specialized in curriculam - thats why the industry trusts us</p>
 
-          <button className="btn p-3 bg-blue-500 text-white rounded-lg">
-            Start Learning Now
-          </button>
-
           <button
             onClick={handleCart}
-            className="btn p-3 bg-orange-500 text-white rounded-lg"
+            className="btn p-3 bg-blue-500 text-white rounded-lg"
           >
-            Add to mylist
+            Start Learning Now
           </button>
         </div>
       </div>

@@ -11,7 +11,6 @@ import TeacherProfile from "../Pages/Dashboard/Teacher/TeacherProfile/TeacherPro
 import UpdateClass from "../Pages/Dashboard/Teacher/UpdateClass/UpdateClass";
 import ClassDetails from "../Pages/Dashboard/Teacher/ClassDetails/ClassDetails";
 import StudentDashboardLayout from "../Layout/StudentDashboardLayout";
-import EnrollClass from "../Pages/Dashboard/Student/EnrollClass";
 import AdminDashboardLayout from "../Layout/AdminDashboardLayout";
 import Users from "../Pages/Dashboard/Admin/Users/Users";
 import TeacherRequest from "../Pages/Dashboard/Admin/TeacherRequest/TeacherRequest";
@@ -22,6 +21,7 @@ import PrivateRoute from "./PrivateRoute";
 import MyCart from "../Pages/Dashboard/Student/MyCart/MyCart";
 import Payment from "../Pages/Dashboard/Student/Payment/Payment";
 import PaymentHistory from "../Pages/Dashboard/Student/Payment/PaymentHistory";
+import EnrollClass from "../Pages/Dashboard/Student/EnrollClass/EnrollClass";
 
 const routes = createBrowserRouter([
   {
@@ -113,7 +113,11 @@ const routes = createBrowserRouter([
     children: [
       {
         path: "enroll-class",
-        element: <EnrollClass />,
+        element: (
+          <PrivateRoute>
+            <EnrollClass />
+          </PrivateRoute>
+        ),
       },
       {
         path: "my-cart",

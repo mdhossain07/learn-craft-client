@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useCart from "../../../../hooks/useCart";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -14,6 +15,9 @@ const CheckoutForm = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
   const [carts] = useCart();
+  const navigate = useNavigate();
+
+  const classId = carts.map((item) => item.classId);
 
   const totalCost = carts.reduce((total, item) => {
     const floatPrice = parseFloat(item.price);
@@ -88,12 +92,12 @@ const CheckoutForm = () => {
           date: new Date(),
           price: totalCost,
           cartIds: carts.map((item) => item._id),
-          classIds: carts.map((item) => item.classId),
-          status: "pending",
+          classId: classId[0],
         };
 
         const res = await axiosSecure.post("/api/v1/add-payment", payment);
         console.log(res.data);
+        navigate("/student/enroll-class");
       }
     }
   };
