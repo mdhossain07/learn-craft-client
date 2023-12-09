@@ -56,7 +56,9 @@ const UpdateClass = () => {
   });
   return (
     <div>
-      <h2>Update Class</h2>
+      <h2 className="text-2xl font-semibold text-center mt-10">
+        Update your Class Information
+      </h2>
 
       <form
         className="bg-[#F3F3F3] font-medium text-[#444444] mt-10 p-10 lg:w-1/2 mx-auto space-y-3"

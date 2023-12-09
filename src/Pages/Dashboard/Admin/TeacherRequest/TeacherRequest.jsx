@@ -21,6 +21,9 @@ const TeacherRequest = () => {
 
   return (
     <div>
+      <h2 className="text-2xl font-semibold text-center mt-10">
+        Teachers Request
+      </h2>
       <div>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">

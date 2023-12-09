@@ -56,7 +56,9 @@ const AddClass = () => {
 
   return (
     <div>
-      <h2>Add Class</h2>
+      <h2 className="text-2xl font-semibold text-center mt-14">
+        Please add your Class Information
+      </h2>
       {status === "rejected" ? (
         <h2 className="text-3xl font-semibold">
           Your Request as an Teacher has been rejected

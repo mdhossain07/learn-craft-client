@@ -22,6 +22,7 @@ import MyCart from "../Pages/Dashboard/Student/MyCart/MyCart";
 import Payment from "../Pages/Dashboard/Student/Payment/Payment";
 import PaymentHistory from "../Pages/Dashboard/Student/Payment/PaymentHistory";
 import EnrollClass from "../Pages/Dashboard/Student/EnrollClass/EnrollClass";
+import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile/AdminProfile";
 
 const routes = createBrowserRouter([
   {
@@ -144,6 +145,11 @@ const routes = createBrowserRouter([
       {
         path: "all-classes",
         element: <AllClasses />,
+      },
+
+      {
+        path: "profile",
+        element: <AdminProfile />,
       },
     ],
   },

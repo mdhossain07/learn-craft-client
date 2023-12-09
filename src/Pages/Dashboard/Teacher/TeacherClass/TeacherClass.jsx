@@ -27,10 +27,13 @@ const TeacherClass = () => {
         <PuffLoader color="#36d7b7" />
       ) : (
         <div>
+          <h2 className="text-2xl font-semibold text-center mt-10">
+            Your Added Classes
+          </h2>
           {classes.length === 0 ? (
             <h2>No classes yet</h2>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 justify-items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 justify-items-center mt-10">
               {classes?.map((item) => (
                 <ClassCard key={item._id} item={item} />
               ))}
