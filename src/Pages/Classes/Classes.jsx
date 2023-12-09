@@ -3,6 +3,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
 import Container from "../../Components/Shared/Container";
 import Cover from "../../Components/Shared/Cover/Cover";
+import teacher from "../../assets/images/Teacher-pana.png";
 
 const Classes = () => {
   const axiosPublic = useAxiosPublic();
@@ -20,7 +21,7 @@ const Classes = () => {
 
   return (
     <>
-      <Cover heading={"All Classes"}></Cover>
+      <Cover image={teacher} heading={"All Classes"}></Cover>
 
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 justify-items-center">
