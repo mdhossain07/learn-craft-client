@@ -1,43 +1,31 @@
-import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
-import { useState } from "react";
-import { useEffect } from "react";
+import usePayments from "../../../../hooks/usePayments";
+import { useQuery } from "@tanstack/react-query";
 
 const EnrollClass = () => {
-  const { user } = useAuth();
+  const [payment] = usePayments();
   const axiosPublic = useAxiosPublic();
-  const [courseInfo, setCourseInfo] = useState(null);
+  const { user, loading } = useAuth();
 
-  const { data: payments } = useQuery({
-    queryKey: ["payments", user?.email],
-    initialData: [],
+  const { data: enrolledClass = {} } = useQuery({
+    queryKey: ["enrolled-class"],
+    enabled: !loading && !!payment?.classId,
     queryFn: async () => {
-      const res = await axiosPublic.get(`/api/v1/payments?email=${user.email}`);
+      const res = await axiosPublic.get(`/api/v1/class/${payment?.classId}`);
       return res.data;
     },
   });
 
-  //   console.log(payments);
-
-  const courseId = payments.map((item) => item.classId);
-  const id = courseId[0];
-
-  useEffect(() => {
-    axiosPublic.get(`/api/v1/class/${id}`).then((res) => {
-      setCourseInfo(res.data);
-    });
-  }, [axiosPublic, id]);
-
-  //   console.log(courseInfo);
+  console.log(enrolledClass);
 
   return (
     <div>
       <h2>My Enrolled Class</h2>
 
       <div>
-        <img src={courseInfo?.image} alt="" />
-        <h2>{courseInfo?.title}</h2>
+        {/* <img src={courseInfo?.image} alt="" />
+        <h2>{courseInfo?.title}</h2> */}
       </div>
     </div>
   );

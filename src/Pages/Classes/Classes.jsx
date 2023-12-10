@@ -24,10 +24,13 @@ const Classes = () => {
       <Cover image={teacher} heading={"All Classes"}></Cover>
 
       <Container>
+        <h2 className="text-3xl text-center font-semibold my-10">
+          Our Featured Courses{" "}
+        </h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 justify-items-center">
           {approvedClass.map((item) => (
             <div key={item?._id}>
-              <div className="shadow-xl p-5 rounded-lg space-y-2">
+              <div className="h-[480px] shadow-xl p-5 rounded-lg space-y-2">
                 <img
                   className="w-[800px] h-[200px]"
                   src={item.image}
@@ -49,7 +52,7 @@ const Classes = () => {
                 </p>
 
                 <Link to={`/class-info/${item._id}`}>
-                  <button className="btn bg-green-500 p-3 rounded-lg">
+                  <button className="btn bg-[#0766AD] w-full mt-4 text-white p-3 rounded-lg">
                     Enroll Now
                   </button>
                 </Link>

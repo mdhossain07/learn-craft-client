@@ -1,14 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import Approved from "../../../../Components/Approved/Approved";
-import Reject from "../../../../Components/Reject/Reject";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import TeacherApprove from "../../../../Components/Approved/TeacherApprove/TeacherApprove";
+import TeacherReject from "../../../../Components/TeacherReject/TeacherReject";
 import { useState } from "react";
 
 const TeacherRequest = () => {
   const axiosSecure = useAxiosSecure();
-  const [status, setStatus] = useState("pending");
-
-  // console.log(status);
 
   const { data: teachers } = useQuery({
     queryKey: ["teacher-request"],
@@ -18,6 +15,8 @@ const TeacherRequest = () => {
       return res.data;
     },
   });
+
+  const [status, setStatus] = useState("pending");
 
   return (
     <div>
@@ -98,7 +97,7 @@ const TeacherRequest = () => {
                     className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     <img
-                      className="w-[100px] rounded-md lg:h-[50px]"
+                      className="w-16 h-16 rounded-full"
                       src={item?.image}
                       alt={item?.name}
                     />
@@ -112,48 +111,24 @@ const TeacherRequest = () => {
 
                   <td className="text-base ">{item?.title}</td>
 
-                  {!item?.status ? (
-                    <td className="px-6 py-4">
-                      <h2>{status}</h2>
-                    </td>
-                  ) : (
-                    <td className="px-6 py-4">
-                      {item?.status === "approved" ? (
-                        <h2 className="text-green-500 font-medium">
-                          {item?.status}
-                        </h2>
-                      ) : (
-                        <h2 className="text-red-500 font-medium">
-                          {item?.status}
-                        </h2>
-                      )}
-                    </td>
-                  )}
+                  <td className="px-6 py-4">
+                    <h2>{item?.status}</h2>
+                  </td>
 
                   <td className={`px-6 py-4}`}>
-                    {item?.status ? (
-                      <button
-                        disabled
-                        className="p-3 text-white bg-gray-300 rounded focus:outline-none"
-                      >
-                        Accpet
-                      </button>
-                    ) : (
-                      <Approved setStatus={setStatus} item={item} />
-                    )}
+                    <div
+                      className={`${!item?.status === "pending" && "hidden"}`}
+                    >
+                      <TeacherApprove setStatus={setStatus} item={item} />
+                    </div>
                   </td>
 
                   <td className={`px-6 py-4 ${item?.status && "disabled"}`}>
-                    {item?.status ? (
-                      <button
-                        disabled
-                        className="p-3 text-white bg-gray-300 rounded focus:outline-none"
-                      >
-                        Reject
-                      </button>
-                    ) : (
-                      <Reject setStatus={setStatus} item={item} />
-                    )}
+                    <div
+                      className={`${!item?.status === "pending" && "hidden"}`}
+                    >
+                      <TeacherReject setStatus={setStatus} item={item} />
+                    </div>
                   </td>
                 </tr>
               ))}

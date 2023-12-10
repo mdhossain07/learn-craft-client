@@ -18,11 +18,11 @@ import Classes from "../Pages/Classes/Classes";
 import AllClasses from "../Pages/Dashboard/Admin/AllClasses/AllClasses";
 import ClassInfo from "../Pages/ClassInfo/ClassInfo";
 import PrivateRoute from "./PrivateRoute";
-import MyCart from "../Pages/Dashboard/Student/MyCart/MyCart";
 import Payment from "../Pages/Dashboard/Student/Payment/Payment";
 import PaymentHistory from "../Pages/Dashboard/Student/Payment/PaymentHistory";
 import EnrollClass from "../Pages/Dashboard/Student/EnrollClass/EnrollClass";
 import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile/AdminProfile";
+import StudentProfile from "../Pages/Dashboard/Student/StudentProfile/StudentProfile";
 
 const routes = createBrowserRouter([
   {
@@ -82,7 +82,11 @@ const routes = createBrowserRouter([
   },
   {
     path: "/teacher",
-    element: <TeacherDashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <TeacherDashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "add-class",
@@ -110,23 +114,19 @@ const routes = createBrowserRouter([
   },
   {
     path: "/student",
-    element: <StudentDashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <StudentDashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
-        path: "enroll-class",
-        element: (
-          <PrivateRoute>
-            <EnrollClass />
-          </PrivateRoute>
-        ),
+        path: "profile",
+        element: <StudentProfile />,
       },
       {
-        path: "my-cart",
-        element: (
-          <PrivateRoute>
-            <MyCart />
-          </PrivateRoute>
-        ),
+        path: "enroll-class",
+        element: <EnrollClass />,
       },
     ],
   },
@@ -135,21 +135,23 @@ const routes = createBrowserRouter([
     element: <AdminDashboardLayout />,
     children: [
       {
+        path: "profile",
+        element: <AdminProfile />,
+      },
+
+      {
         path: "users",
         element: <Users />,
       },
+
       {
         path: "teacher-request",
         element: <TeacherRequest />,
       },
+
       {
         path: "all-classes",
         element: <AllClasses />,
-      },
-
-      {
-        path: "profile",
-        element: <AdminProfile />,
       },
     ],
   },

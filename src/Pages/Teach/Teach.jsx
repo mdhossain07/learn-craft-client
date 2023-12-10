@@ -29,6 +29,7 @@ const Teach = () => {
         email: user?.email,
         image: user?.photoURL,
         title: values.title,
+        status: "pending",
       };
 
       axiosPublic.post("/api/v1/add-teacher", teacherInfo).then((res) => {
@@ -99,6 +100,9 @@ const Teach = () => {
                 <option value="Digital Marketing">Digital Marketing</option>
                 <option value="Web Development">Web Development</option>
                 <option value="Photography">Photography</option>
+                <option value="Graphics Designer">Graphics Designing</option>
+                <option value="Machine Learning">Machine Learning </option>
+                <option value="Freelancing">Freelancing</option>
               </select>
             </div>
           </div>

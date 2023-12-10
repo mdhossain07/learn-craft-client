@@ -17,17 +17,10 @@ const CheckoutForm = () => {
   const [carts] = useCart();
   const navigate = useNavigate();
 
-  const classId = carts.map((item) => item.classId);
+  // console.log(carts);
 
-  const totalCost = carts.reduce((total, item) => {
-    const floatPrice = parseFloat(item.price);
-
-    if (!isNaN(floatPrice)) {
-      return total + floatPrice;
-    } else {
-      return total;
-    }
-  }, 0);
+  const totalCost = parseFloat(carts?.price);
+  // console.log(totalCost);
 
   useEffect(() => {
     if (totalCost > 0) {
@@ -91,8 +84,8 @@ const CheckoutForm = () => {
           email: user?.email,
           date: new Date(),
           price: totalCost,
-          cartIds: carts.map((item) => item._id),
-          classId: classId[0],
+          // cartIds: carts?.map((item) => item._id),
+          classId: carts?.classId,
         };
 
         const res = await axiosSecure.post("/api/v1/add-payment", payment);

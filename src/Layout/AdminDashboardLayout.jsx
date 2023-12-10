@@ -3,26 +3,6 @@ import { Link, Outlet } from "react-router-dom";
 
 const AdminDashboardLayout = () => {
   return (
-    // <div className="flex min-h-screen">
-    //   <div className="w-1/3 bg-gray-200 p-2">
-    //     <Link to="/admin/users">
-    //       <h2>Users</h2>
-    //     </Link>
-
-    //     <Link to="/admin/teacher-request">
-    //       <h2>Teacher Request</h2>
-    //     </Link>
-
-    //     <Link to="/admin/all-classes">
-    //       <h2>All Classes</h2>
-    //     </Link>
-    //   </div>
-
-    //   <div className="w-full p-3">
-    //     <Outlet />
-    //   </div>
-    // </div>
-
     <div className="flex min-h-screen ">
       <div className="w-1/3 lg:w-1/4 bg-[#0766AD] text-white p-3 flex flex-col justify-between">
         <div>
@@ -37,6 +17,13 @@ const AdminDashboardLayout = () => {
             <div className="flex gap-2 items-center my-3">
               <FaUsersLine className="text-2xl" />
               <h2 className="font-medium text-xl">Teacher Request</h2>
+            </div>
+          </Link>
+
+          <Link to="/admin/all-classes">
+            <div className="flex gap-2 items-center my-3">
+              <FaUser className="text-xl" />
+              <h2 className="font-medium text-xl">All Classes</h2>
             </div>
           </Link>
 

@@ -67,8 +67,6 @@ const Register = () => {
         .catch((err) => {
           toast.error(err);
         });
-
-      // console.log(userInfo);
     },
   });
 
@@ -80,7 +78,7 @@ const Register = () => {
             <img className="w-full" src={register} alt="" />
           </div>
 
-          <div className="w-full mt-10 max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full mt-10 max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
             <form
               onSubmit={formik.handleSubmit}
               className="space-y-6"
@@ -172,7 +170,7 @@ const Register = () => {
               </div>
 
               <div className="text-center mt-3">
-                <p className=" text-sm font-medium text-white">
+                <p className=" text-sm font-medium text-black">
                   Already have an account?
                   <Link to="/login">
                     <span className="text-blue-500 text-sm font-semibold">

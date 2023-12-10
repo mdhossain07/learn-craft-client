@@ -1,9 +1,13 @@
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
+import { useState } from "react";
+import useClass from "../../hooks/useClass";
 
-const Approved = ({ item, status, setStatus }) => {
+const Approved = ({ item }) => {
   const axiosSecure = useAxiosSecure();
+  const [approve, setApprove] = useState(false);
+  const [, , refetch] = useClass();
 
   const handleApprove = (item) => {
     Swal.fire({
@@ -20,35 +24,40 @@ const Approved = ({ item, status, setStatus }) => {
           if (res.data.modifiedCount > 0) {
             Swal.fire({
               title: "Done!",
-              text: `You approved the request the request`,
+              text: `You approved the course request`,
               icon: "success",
             });
-            // axiosSecure.get(`/api/v1/teacher/${item?._id}`).then((res) => {
-            //   if (res.data.status === "approved") {
-            //     setStatus(res.data.status);
-            //   }
-            // });
+            refetch();
           }
         });
       }
     });
   };
 
+  axiosSecure.get(`/api/v1/class/${item?._id}`).then((res) => {
+    if (res.data?.status === "approved") {
+      setApprove(true);
+    }
+  });
+
   return (
     <div>
-      <button
-        onClick={() => handleApprove(item)}
-        className="p-3 font-medium bg-blue-600 rounded-lg text-white"
-      >
-        Approve
-      </button>
+      {approve ? (
+        <h2 className="text-blue-500 font-semibold">Approved</h2>
+      ) : (
+        <button
+          onClick={() => handleApprove(item)}
+          className="p-3 font-medium bg-blue-600 rounded-lg text-white"
+        >
+          Approve
+        </button>
+      )}
     </div>
   );
 };
 
 Approved.propTypes = {
   item: PropTypes.object,
-  setStatus: PropTypes.func,
 };
 
 export default Approved;

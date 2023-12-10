@@ -7,7 +7,7 @@ import Details from "../Details/Details";
 const classCard = ({ item }) => {
   return (
     <div>
-      <div className="lg:w-9/12 mx-auto shadow-xl p-5 rounded-lg space-y-2">
+      <div className="lg:w-9/12 h-[380px] mx-auto shadow-xl p-5 rounded-lg space-y-2">
         <img
           className="w-[800px] h-[200px]"
           src={item.image}
@@ -19,7 +19,7 @@ const classCard = ({ item }) => {
             Course Price: ${item.price}
           </p>
           <p className="text-gray-800 text-sm font-medium">
-            Status: {item?.status}
+            Status: {item?.status ? item?.status : "pending"}
           </p>
         </div>
 
@@ -27,7 +27,7 @@ const classCard = ({ item }) => {
           Instructor Name: {item.instructor_name}
         </p>
       </div>
-      <div className="flex flex-row justify-center my-4  gap-5">
+      <div className="flex flex-row justify-center items-center my-4  gap-5">
         <Link to={`/teacher/update-class/${item._id}`}>
           <Update />
         </Link>
@@ -38,7 +38,9 @@ const classCard = ({ item }) => {
           <Link to={`/teacher/class/${item._id}`}>
             <Details />
           </Link>
-        ) : null}
+        ) : (
+          <h2 className="font-medium">Request under review</h2>
+        )}
       </div>
     </div>
   );

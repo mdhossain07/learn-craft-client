@@ -120,7 +120,7 @@ const Users = () => {
                 <td className="px-6 py-4">{user?.role}</td>
 
                 <td className="px-6 py-4">
-                  <h2 className="font-bold text-lg text-blue-500">
+                  <h2 className="font-semibold text-lg text-blue-500">
                     {user?.admin}
                   </h2>
                 </td>

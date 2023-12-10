@@ -29,11 +29,11 @@ const Login = () => {
     <div>
       <Container>
         <div className="flex flex-col lg:flex-row items-center justify-center lg:gap-16">
-          <div>
-            <img className="w-full" src={login} alt="" />
+          <div className="">
+            <img className="w-full " src={login} alt="" />
           </div>
 
-          <div className="w-full mt-10 max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full mt-10 max-w-lg p-4 bg-white border border-gray-200  rounded-lg shadow sm:p-6 md:p-8">
             <form
               onSubmit={formik.handleSubmit}
               className="space-y-6"
@@ -78,7 +78,7 @@ const Login = () => {
               </div>
 
               <div className="text-center mt-3">
-                <p className=" text-sm font-medium text-white">
+                <p className=" text-sm font-medium text-black">
                   New to this website?
                   <Link to="/register">
                     <span className="text-blue-500 text-sm font-semibold">
