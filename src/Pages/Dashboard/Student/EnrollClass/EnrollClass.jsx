@@ -21,11 +21,10 @@ const EnrollClass = () => {
 
   return (
     <div>
-      <h2>My Enrolled Class</h2>
-
+      <h2>My Enrolled Class</h2>p
       <div>
-        {/* <img src={courseInfo?.image} alt="" />
-        <h2>{courseInfo?.title}</h2> */}
+        <img src={enrolledClass?.image} alt="" />
+        <h2>{enrolledClass?.title}</h2>
       </div>
     </div>
   );
