@@ -18,8 +18,6 @@ const EnrollClass = () => {
     },
   });
 
-  console.log(enrolledClass);
-
   return (
     <div>
       <h2>My Enrolled Class</h2>

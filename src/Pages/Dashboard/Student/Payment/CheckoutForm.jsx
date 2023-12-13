@@ -103,6 +103,9 @@ const CheckoutForm = () => {
 
         const res = await axiosSecure.post("/api/v1/add-payment", payment);
         console.log(res.data);
+        if (res.data.message) {
+          toast.error("Already Enrolled");
+        }
         navigate("/student/enroll-class");
       }
     }
