@@ -8,6 +8,7 @@ const useCart = () => {
 
   const { data: carts } = useQuery({
     queryKey: ["carts", user?.email],
+    initialData: [],
     queryFn: async () => {
       const res = await axiosPublic.get(`/api/v1/carts?email=${user?.email}`);
       return res.data;

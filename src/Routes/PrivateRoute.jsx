@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { PuffLoader } from "react-spinners";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -9,7 +10,7 @@ const PrivateRoute = ({ children }) => {
   }
 
   if (loading) {
-    return <h2>Loading....</h2>;
+    return <PuffLoader color="#36d7b7" />;
   }
   return <Navigate to="/login" />;
 };

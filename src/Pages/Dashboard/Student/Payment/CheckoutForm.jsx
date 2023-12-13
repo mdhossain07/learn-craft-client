@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useCart from "../../../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -19,7 +20,19 @@ const CheckoutForm = () => {
 
   // console.log(carts);
 
-  const totalCost = parseFloat(carts?.price);
+  // const totalCost = parseFloat(carts?.price);
+  // // console.log(totalCost);
+
+  const totalCost = carts.reduce((total, item) => {
+    const floatPrice = parseFloat(item?.price);
+
+    if (!isNaN(floatPrice)) {
+      return total + floatPrice;
+    } else {
+      total;
+    }
+  }, 0);
+
   // console.log(totalCost);
 
   useEffect(() => {
@@ -75,7 +88,7 @@ const CheckoutForm = () => {
       console.log("confirmation error", confirmError);
     } else {
       if (paymentIntent.status === "succeeded") {
-        alert("payment successfull", transactionId);
+        toast.success("Payment Successfull!");
         setTransactionId(paymentIntent.id);
         // console.log(transactionId, paymentIntent.id);
 
@@ -84,8 +97,8 @@ const CheckoutForm = () => {
           email: user?.email,
           date: new Date(),
           price: totalCost,
-          // cartIds: carts?.map((item) => item._id),
-          classId: carts?.classId,
+          cartIds: carts?.map((item) => item._id),
+          classId: carts?.map((item) => item?.classId),
         };
 
         const res = await axiosSecure.post("/api/v1/add-payment", payment);

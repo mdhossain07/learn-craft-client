@@ -1,18 +1,19 @@
-import useAuth from "../../../../hooks/useAuth";
+import { Link } from "react-router-dom";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
-import usePayments from "../../../../hooks/usePayments";
 import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../../../hooks/useAuth";
 
 const EnrollClass = () => {
-  const [payment] = usePayments();
   const axiosPublic = useAxiosPublic();
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
 
-  const { data: enrolledClass = {} } = useQuery({
-    queryKey: ["enrolled-class"],
-    enabled: !loading && !!payment?.classId,
+  const { data: enrolledClass = [] } = useQuery({
+    queryKey: ["enrolled-class", user?.email],
+
     queryFn: async () => {
-      const res = await axiosPublic.get(`/api/v1/class/${payment?.classId}`);
+      const res = await axiosPublic.get(
+        `/api/v1/enrollments?email=${user?.email}`
+      );
       return res.data;
     },
   });
@@ -21,10 +22,30 @@ const EnrollClass = () => {
 
   return (
     <div>
-      <h2>My Enrolled Class</h2>p
-      <div>
-        <img src={enrolledClass?.image} alt="" />
-        <h2>{enrolledClass?.title}</h2>
+      <h2>My Enrolled Class</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 justify-items-center">
+        {enrolledClass?.map((item) => (
+          <div key={item?._id}>
+            <div className="h-[420px] shadow-xl p-5 rounded-lg space-y-2">
+              <img
+                className="w-[800px] h-[200px]"
+                src={item.image}
+                alt={item.title}
+              />
+              <h2 className="text-2xl font-semibold">{item.title}</h2>
+
+              <p className="text-gray-800 text-sm font-medium">
+                Instructor Name: {item.instructor_name}
+              </p>
+
+              <Link>
+                <button className="btn bg-[#0766AD] w-full mt-4 text-white p-3 rounded-lg">
+                  Continue Course
+                </button>
+              </Link>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
