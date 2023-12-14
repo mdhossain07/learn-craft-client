@@ -6,6 +6,7 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useCart from "../../../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Container from "../../../../Components/Shared/Container";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -118,37 +119,42 @@ const CheckoutForm = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: "16px",
-                color: "#424770",
-                "::placeholder": {
-                  color: "#aab7c4",
+      <Container>
+        <h2 className="text-2xl my-10 font-semibold text-center">
+          Checkout Page
+        </h2>
+        <form onSubmit={handleSubmit}>
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: "16px",
+                  color: "#424770",
+                  "::placeholder": {
+                    color: "#aab7c4",
+                  },
+                },
+                invalid: {
+                  color: "#9e2146",
                 },
               },
-              invalid: {
-                color: "#9e2146",
-              },
-            },
-          }}
-        />
-        <button
-          className="btn btn-neutral btn-md mt-10"
-          type="submit"
-          disabled={!stripe || !clientSecret}
-        >
-          Pay
-        </button>
-        <p className="text-red-600 font-medium mt-5">{error}</p>
-        {transactionId && (
-          <p className="text-green-600 font-medium">
-            Your transactionId is: {transactionId}
-          </p>
-        )}
-      </form>
+            }}
+          />
+          <button
+            className="bg-blue-500 px-4 py-2 rounded-lg text-white font-medium mt-10"
+            type="submit"
+            disabled={!stripe || !clientSecret}
+          >
+            Pay
+          </button>
+          <p className="text-red-600 font-medium mt-5">{error}</p>
+          {transactionId && (
+            <p className="text-green-600 font-medium">
+              Your transactionId is: {transactionId}
+            </p>
+          )}
+        </form>
+      </Container>
     </div>
   );
 };

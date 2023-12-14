@@ -48,7 +48,7 @@ const Classes = () => {
                     </p>
                     <p className="text-gray-800 text-sm font-medium">
                       Total Enrollment:{" "}
-                      {item?.enrollment ? "0" : item?.enrollment}
+                      {item?.enrollment ? item?.enrollment : "0"}
                     </p>
                   </div>
 

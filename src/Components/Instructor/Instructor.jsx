@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Instructor = () => {
   return (
-    <div className="min-h-screen mt-20">
+    <div className="my-20">
       <Container>
         <SectionTitle
           heading={"Become an Instructor"}
@@ -24,7 +24,7 @@ const Instructor = () => {
               deleniti dolore rerum.
             </p>
             <Link to="/join-instructor">
-              <button className="bg-[#29ADB2] px-5 py-3 rounded-full text-white">
+              <button className="bg-[#29ADB2] px-5 py-3 rounded-full text-white my-5">
                 Start Teaching Today
               </button>
             </Link>
