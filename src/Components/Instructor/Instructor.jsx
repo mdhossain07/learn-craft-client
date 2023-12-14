@@ -1,6 +1,7 @@
 import Container from "../Shared/Container";
 import SectionTitle from "../Shared/SectionTitle";
 import teacher from "../../assets/images/teacher.jpg";
+import { Link } from "react-router-dom";
 
 const Instructor = () => {
   return (
@@ -22,9 +23,11 @@ const Instructor = () => {
               quisquam, pariatur consequuntur facilis quia ea labore consequatur
               deleniti dolore rerum.
             </p>
-            <button className="bg-[#29ADB2] px-5 py-3 rounded-full text-white">
-              Start Teaching Today
-            </button>
+            <Link to="/join-instructor">
+              <button className="bg-[#29ADB2] px-5 py-3 rounded-full text-white">
+                Start Teaching Today
+              </button>
+            </Link>
           </div>
         </div>
       </Container>

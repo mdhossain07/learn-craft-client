@@ -88,8 +88,8 @@ const CheckoutForm = () => {
       console.log("confirmation error", confirmError);
     } else {
       if (paymentIntent.status === "succeeded") {
-        toast.success("Payment Successfull!");
-        setTransactionId(paymentIntent.id);
+        // toast.success("Payment Successfull!");
+        // setTransactionId(paymentIntent.id);
         // console.log(transactionId, paymentIntent.id);
 
         const payment = {
@@ -104,9 +104,14 @@ const CheckoutForm = () => {
         const res = await axiosSecure.post("/api/v1/add-payment", payment);
         console.log(res.data);
         if (res.data.message) {
-          toast.error("Already Enrolled");
+          toast.error("Already Enrolled this Course");
+          navigate("/all-classes");
+          return;
+        } else {
+          toast.success("You enrolled this course!");
+          setTransactionId(paymentIntent.id);
+          navigate("/student/enroll-class");
         }
-        navigate("/student/enroll-class");
       }
     }
   };

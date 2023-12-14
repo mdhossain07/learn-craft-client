@@ -23,6 +23,7 @@ import PaymentHistory from "../Pages/Dashboard/Student/Payment/PaymentHistory";
 import EnrollClass from "../Pages/Dashboard/Student/EnrollClass/EnrollClass";
 import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile/AdminProfile";
 import StudentProfile from "../Pages/Dashboard/Student/StudentProfile/StudentProfile";
+import EnrolledClassDetails from "../Pages/Dashboard/Student/EnrolledClassDetails/EnrolledClassDetails";
 
 const routes = createBrowserRouter([
   {
@@ -39,7 +40,7 @@ const routes = createBrowserRouter([
       },
 
       {
-        path: "/teach",
+        path: "/join-instructor",
         element: (
           <PrivateRoute>
             <Teach />
@@ -127,6 +128,10 @@ const routes = createBrowserRouter([
       {
         path: "enroll-class",
         element: <EnrollClass />,
+      },
+      {
+        path: "enrolled-class/:id",
+        element: <EnrolledClassDetails />,
       },
     ],
   },

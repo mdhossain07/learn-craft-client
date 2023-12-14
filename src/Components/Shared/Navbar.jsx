@@ -68,7 +68,7 @@ const Navbar = () => {
           hover: { color: "#F4F27E" },
         }}
         className={({ isActive }) => (isActive ? "text-[#F4F27E]" : "")}
-        to="/teach"
+        to="/join-instructor"
       >
         Teach on LEARN CRAFT
       </NavLink>

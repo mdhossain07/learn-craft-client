@@ -1,83 +1,60 @@
 import { useState } from "react";
-import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+import useAuth from "../../hooks/useAuth";
+import ReactStars from "react-rating-stars-component";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 
-const ClassDetails = () => {
-  const axiosPublic = useAxiosPublic();
+const Evaluation = () => {
   const [modal, setModal] = useState(false);
-  const { id } = useParams();
+  const [newRating, setNewRating] = useState(0);
+  const { user } = useAuth();
+  const axiosPublic = useAxiosPublic();
 
-  const { data } = useQuery({
-    queryKey: ["single-class"],
-    queryFn: async () => {
-      const res = await axiosPublic.get(`/api/v1/class/${id}`);
-      return res.data;
-    },
-  });
-
-  const { data: assigntmentInfo } = useQuery({
-    queryKey: ["assignmentInfo"],
-    queryFn: async () => {
-      const res = await axiosPublic.get(`/api/v1/assignment/${id}`);
-      return res.data;
-    },
-  });
+  const ratingChanged = (newRating) => {
+    setNewRating(newRating);
+  };
 
   const handleClose = () => {
     setModal(false);
   };
 
-  const handleAssignment = () => {
+  const handleEvaluation = () => {
     setModal(true);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = e.target;
-    const title = form.title.value;
-    const deadline = form.deadline.value;
-    const description = form.description.value;
+    const description = e.target.description.value;
 
-    const assignmentInfo = {
-      classId: id,
-      course_name: assigntmentInfo?.title,
-      title: title,
-      deadline: deadline,
-      description: description,
+    const feedbackInfo = {
+      name: user?.displayName,
+      image: user?.photoURl,
+      rating: newRating,
+      feedback: description,
     };
 
-    axiosPublic.post("/api/v1/add-assignment", assignmentInfo).then((res) => {
+    axiosPublic.post("/api/v1/add-feedback", feedbackInfo).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
-        toast.success("New Assignment Added");
-        form.reset();
+        toast.success("Feedback Submitted!");
+        e.target.reset();
       }
     });
   };
-
   return (
     <div>
-      <h2>Class Details</h2>
-      <div className="flex flex-col lg:flex-row gap-5 mt-10">
-        <h2>Enrollment: {data?.enrollment}</h2>
-        <h2>Assignments: {data?.assignment}</h2>
-        <h2>Daily Assignment: {assigntmentInfo?.PDA}</h2>
+      <div className="flex justify-center my-10 ">
+        <button
+          onClick={handleEvaluation}
+          data-modal-toggle="crud-modal"
+          data-modal-target="crud-modal"
+          className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          type="button"
+        >
+          Teaching Evaluation Report
+        </button>
       </div>
 
-      {/* <!-- Modal toggle --> */}
-      <button
-        onClick={handleAssignment}
-        data-modal-toggle="crud-modal"
-        data-modal-target="crud-modal"
-        className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        type="button"
-      >
-        Create Assignment
-      </button>
-
-      {/* <!-- Main modal --> */}
       {modal ? (
         <div
           // data-modal-show="crud-modal"
@@ -85,13 +62,13 @@ const ClassDetails = () => {
           aria-hidden="true"
           //   className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
         >
-          <div className="relative p-4 w-full max-w-md max-h-full">
+          <div className="relative p-4 w-full max-w-xl mx-auto  max-h-full">
             {/* <!-- Modal content --> */}
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               {/* <!-- Modal header --> */}
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Create New Product
+                  Submit Your Feedback
                 </h3>
                 <button
                   onClick={handleClose}
@@ -109,9 +86,9 @@ const ClassDetails = () => {
                   >
                     <path
                       stroke="currentColor"
-                      // stroke-linecap="round"
-                      // stroke-linejoin="round"
-                      // stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                     />
                   </svg>
@@ -119,58 +96,49 @@ const ClassDetails = () => {
                 </button>
               </div>
               {/* <!-- Modal body --> */}
-              <form onSubmit={handleSubmit} className="p-4 md:p-5">
+              <form onSubmit={handleSubmit} className="w-full p-4 md:p-5 ">
                 <div className="grid gap-4 mb-4 grid-cols-2">
                   <div className="col-span-2">
-                    <label
-                      htmlFor="name"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Assignment Title
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                      Student Name
                     </label>
                     <input
                       type="text"
-                      name="title"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      placeholder="Type product name"
-                      required=""
+                      defaultValue={user?.displayName}
+                      disabled
                     />
                   </div>
                   <div className="col-span-2 sm:col-span-1">
-                    <label
-                      htmlFor="price"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Assignment Deadline
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                      Your Rating
                     </label>
-                    <input
-                      type="date"
-                      name="deadline"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      placeholder="$2999"
-                      required=""
+                    <ReactStars
+                      count={5}
+                      onChange={ratingChanged}
+                      size={30}
+                      activeColor="#0766AD"
                     />
+                    ,
                   </div>
 
                   <div className="col-span-2">
-                    <label
-                      htmlFor="description"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Assignment Description
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                      Feedback Details
                     </label>
                     <textarea
                       id="description"
                       name="description"
                       rows="4"
                       className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Write product description here"
+                      required
+                      placeholder="Write your feedback here"
                     ></textarea>
                   </div>
                 </div>
                 <button
                   type="submit"
-                  className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="text-white inline-flex items-center bg-[#29ADB2]  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   <svg
                     className="me-1 -ms-1 w-5 h-5"
@@ -184,7 +152,7 @@ const ClassDetails = () => {
                       clipRule="evenodd"
                     ></path>
                   </svg>
-                  Add Assignment
+                  Submit Feedback
                 </button>
               </form>
             </div>
@@ -195,4 +163,4 @@ const ClassDetails = () => {
   );
 };
 
-export default ClassDetails;
+export default Evaluation;

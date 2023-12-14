@@ -20,7 +20,9 @@ const EnrollClass = () => {
 
   return (
     <div>
-      <h2>My Enrolled Class</h2>
+      <h2 className="text-2xl my-10 font-semibold text-center">
+        My Enrolled Courses
+      </h2>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 justify-items-center">
         {enrolledClass?.map((item) => (
           <div key={item?._id}>
@@ -36,7 +38,7 @@ const EnrollClass = () => {
                 Instructor Name: {item.instructor_name}
               </p>
 
-              <Link>
+              <Link to={`/student/enrolled-class/${item?._id}`}>
                 <button className="btn bg-[#0766AD] w-full mt-4 text-white p-3 rounded-lg">
                   Continue Course
                 </button>

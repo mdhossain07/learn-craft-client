@@ -74,7 +74,7 @@ const Teach = () => {
             value={formik.values.title}
           />
 
-          <div className="flex justify-between gap-10">
+          <div className="flex flex-col lg:flex-row justify-between gap-5">
             <div className="flex-1">
               <label htmlFor="">Experience*</label>
               <br />
@@ -89,7 +89,7 @@ const Teach = () => {
               </select>
             </div>
 
-            <div className="flex-1">
+            <div className="">
               <label htmlFor="">Category*</label>
               <br />
               <select

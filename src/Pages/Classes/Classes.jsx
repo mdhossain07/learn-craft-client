@@ -47,7 +47,8 @@ const Classes = () => {
                       Course Price: ${item.price}
                     </p>
                     <p className="text-gray-800 text-sm font-medium">
-                      Total Enrollment: {item?.enrollment}
+                      Total Enrollment:{" "}
+                      {item?.enrollment ? "0" : item?.enrollment}
                     </p>
                   </div>
 
