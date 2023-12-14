@@ -6,11 +6,13 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useClass from "../../../../hooks/useClass";
 import Evaluation from "../../../../Components/Evaluation/Evaluation";
+import useAuth from "../../../../hooks/useAuth";
 
 const EnrolledClassDetails = () => {
   const axiosPublic = useAxiosPublic();
   const [, , refetch] = useClass();
   const [assignmentFile, setAssignmentFile] = useState(null);
+  const { user } = useAuth();
 
   const { id } = useParams();
   const { data: assignments = [] } = useQuery({
@@ -28,11 +30,20 @@ const EnrolledClassDetails = () => {
     console.log(formData);
     console.log(assignmentFile);
 
-    axiosPublic.patch(`/api/v1/update-assignment/${id}`).then((res) => {
-      if (res.data.modifiedCount > 0) {
-        toast.success("Assignment Submitted");
-      }
-      refetch();
+    const assignmentInfo = {
+      email: user?.email,
+      assignment_name: assignmentFile?.name,
+    };
+
+    axiosPublic.patch(`/api/v1/update-assignment/${id}`).then(() => {
+      axiosPublic
+        .post("/api/v1/post-assignment", assignmentInfo)
+        .then((res) => {
+          if (res.data.insertedId) {
+            toast.success("Assignment Submssion Done!");
+          }
+          refetch();
+        });
     });
   };
 

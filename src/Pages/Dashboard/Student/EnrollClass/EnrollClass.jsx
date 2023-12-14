@@ -7,14 +7,14 @@ const EnrollClass = () => {
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
 
-  const { data: enrolledClass = [] } = useQuery({
+  const { data: enrolledClass } = useQuery({
     queryKey: ["enrolled-class", user?.email],
-
+    initialData: [],
     queryFn: async () => {
       const res = await axiosPublic.get(
         `/api/v1/enrollments?email=${user?.email}`
       );
-      return res.data;
+      return res.data.result;
     },
   });
 
