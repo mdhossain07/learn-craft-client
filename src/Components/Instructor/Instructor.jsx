@@ -19,9 +19,9 @@ const Instructor = () => {
           <div className="space-y-3">
             <h2 className="text-3xl font-semibold">Join as an Instructor</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam
-              quisquam, pariatur consequuntur facilis quia ea labore consequatur
-              deleniti dolore rerum.
+              Instructors from around the world teach millions of learners on
+              Learn Craft. We provide the tools and skills to teach what you
+              love.
             </p>
             <Link to="/join-instructor">
               <button className="bg-[#29ADB2] px-5 py-3 rounded-full text-white my-5">

@@ -2,8 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useNavigate, useParams } from "react-router-dom";
 import Container from "../../Components/Shared/Container";
-
-import { StarRating } from "react-star-rating-input";
+import ReactStars from "react-rating-stars-component";
 import useAuth from "../../hooks/useAuth";
 
 const ClassInfo = () => {
@@ -40,11 +39,11 @@ const ClassInfo = () => {
       <h2 className="text-3xl font-semibold mt-10">{data.title}</h2>
       <div className="flex flex-col lg:flex-row gap-10 mt-5 lg:items-center">
         <img className="lg:w-[500px] h-[250px]" src={data.image} alt="" />
-        <div className="space-y-2 text-lg">
-          <p>Take all our online classes. Pay a flat fee</p>
-          <p>Self-paced: never miss a class or deadline</p>
-          <p>Get industry recognized Course Certificates</p>
-          <p>Specialized in curriculam - thats why the industry trusts us</p>
+        <div className="space-y-4 font-medium">
+          <p>1. Take all our online classes. Pay a flat fee</p>
+          <p>2. Self-paced: never miss a class or deadline</p>
+          <p>3. Get industry recognized Course Certificates</p>
+          <p>4. Specialized in curriculam - thats why the industry trusts us</p>
 
           <button
             onClick={handleCart}
@@ -55,22 +54,28 @@ const ClassInfo = () => {
         </div>
       </div>
 
-      <div className="flex mt-10 flex-col lg:flex-row gap-5 bg-black p-10 text-white">
+      <div className="flex mt-10 flex-col lg:flex-row gap-5 bg-gray-700 rounded-md p-10 text-white">
         <div className="w-1/2 text-sm text-gray-400 space-y-2">
           <h2 className="text-xl font-sembold text-white">Course Info</h2>
-          <div className="flex justify-between">
+          <div className="flex gap-10">
             <p>Rating: </p>
-            <StarRating value={5} size={24} />
+            <ReactStars value={5} size={20} edit={false} />
           </div>
 
-          <p>Level: Beginner</p>
-          <p>Duration: 1hr 30 mints</p>
-          <p>Price: {data.price}</p>
+          <p>
+            Level: <span className="text-white ml-12"> Beginner</span>
+          </p>
+          <p>
+            Duration: <span className="text-white ml-5"> 1hr 20 mints</span>
+          </p>
+          <p>
+            Price: <span className="text-white ml-12"> ${data?.price}</span>
+          </p>
         </div>
 
-        <div className="w-1/2">
+        <div className="w-1/2 space-y-5">
           <p className="text-xl font-sembold text-white">Description</p>
-          <p className="text-sm text-gray-400">{data.description}</p>
+          <p className="text-sm text-gray-300">{data.description}</p>
         </div>
       </div>
     </Container>

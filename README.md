@@ -1,8 +1,17 @@
-# React + Vite
+# Learn Craft
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Website link: https://learn-craft.web.app/
 
-Currently, two official plugins are available:
+admin_email: learn@craft.com
+admin_pass: Learn@craft1
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Features:
+
+1. Teachers can register on the website & can apply for teaching online.
+2. Teacher will upload the course & can add assignments for the particular course.
+3. Teachers update, modify, delete his/her course anytime they want.
+4. Students can purchase the course via Stripe & enroll the course.
+5. Students can submit the assignment before the deadline.
+6. Students submit feedback regarding the course.
+7. Admin can review teacher request, students progress, manipulate users & other things.
+8. Firebase authentication & JWT authentication implemented.
