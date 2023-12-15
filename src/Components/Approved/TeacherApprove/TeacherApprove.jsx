@@ -3,8 +3,10 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useClass from "../../../hooks/useClass";
 
 import PropTypes from "prop-types";
+import { useState } from "react";
 
-const TeacherApprove = ({ item, setStatus }) => {
+const TeacherApprove = ({ item }) => {
+  const [approve, setApprove] = useState(false);
   const axiosSecure = useAxiosSecure();
   const [, , refetch] = useClass();
 
@@ -29,28 +31,36 @@ const TeacherApprove = ({ item, setStatus }) => {
                 icon: "success",
               });
               refetch();
-              setStatus(item?.status);
             }
           });
       }
     });
   };
 
+  axiosSecure.get(`/api/v1/teacher/${item?.email}`).then((res) => {
+    if (res.data?.status === "approved") {
+      setApprove(true);
+    }
+  });
+
   return (
     <div>
-      <button
-        onClick={() => handleApprove(item)}
-        className="p-3 font-medium bg-blue-600 rounded-lg text-white"
-      >
-        Approve
-      </button>
+      {approve ? (
+        <h2 className="text-blue-500 font-semibold">Approved</h2>
+      ) : (
+        <button
+          onClick={() => handleApprove(item)}
+          className="p-3 font-medium bg-blue-600 rounded-lg text-white"
+        >
+          Approve
+        </button>
+      )}
     </div>
   );
 };
 
 TeacherApprove.propTypes = {
   item: PropTypes.object,
-  setStatus: PropTypes.func,
 };
 
 export default TeacherApprove;

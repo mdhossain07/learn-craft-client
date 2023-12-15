@@ -1,14 +1,16 @@
 import { useState } from "react";
-import useAuth from "../../hooks/useAuth";
+import useProfile from "../../hooks/useProfile";
 import ReactStars from "react-rating-stars-component";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Evaluation = () => {
   const [modal, setModal] = useState(false);
   const [newRating, setNewRating] = useState(0);
-  const { user } = useAuth();
+  const { userInfo } = useProfile();
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
 
   const ratingChanged = (newRating) => {
     setNewRating(newRating);
@@ -27,8 +29,8 @@ const Evaluation = () => {
     const description = e.target.description.value;
 
     const feedbackInfo = {
-      name: user?.displayName,
-      image: user?.photoURl,
+      name: userInfo?.name,
+      image: userInfo?.photo_url,
       rating: newRating,
       feedback: description,
     };
@@ -39,6 +41,7 @@ const Evaluation = () => {
         toast.success("Feedback Submitted!");
         e.target.reset();
       }
+      navigate("/student/enroll-class");
     });
   };
   return (
@@ -105,7 +108,7 @@ const Evaluation = () => {
                     <input
                       type="text"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      defaultValue={user?.displayName}
+                      defaultValue={userInfo?.name}
                       disabled
                     />
                   </div>

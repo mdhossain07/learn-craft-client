@@ -9,12 +9,14 @@ const AdminProfile = () => {
         {" "}
         Welcome Back, {isAdmin?.user?.name}{" "}
       </h2>
-      <img
-        className="w-[200px]"
-        src={isAdmin?.user?.photo_url}
-        alt={isAdmin?.user?.name}
-      />
-      <p>{isAdmin?.user?.name}</p>
+      <div className="my-10">
+        <img
+          className="w-28 h-28 rounded-full"
+          src={isAdmin?.user?.photo_url}
+          alt={isAdmin?.user?.name}
+        />
+        <p>{isAdmin?.user?.name}</p>
+      </div>
     </div>
   );
 };

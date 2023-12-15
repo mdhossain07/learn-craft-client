@@ -44,8 +44,8 @@ const Feedbacks = () => {
                   <div>
                     <img
                       className="w-20 h-20 rounded-full border-4  absolute -left-10 top-12"
-                      src={item?.user_image}
-                      alt={item?.user_name}
+                      src={item?.image}
+                      alt={item?.name}
                     />
                   </div>
                   <p className="text-slate-600 text-md"> {item?.feedback}</p>

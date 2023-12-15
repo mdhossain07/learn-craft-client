@@ -9,7 +9,7 @@ const StudentProfile = () => {
   const { user, loading } = useAuth();
 
   const { data: enrolledCourses } = useQuery({
-    queryKey: ["enrolled-courses"],
+    queryKey: ["enrolled-courses", user?.email],
     initialData: {},
     queryFn: async () => {
       const res = await axiosPublic.get(
@@ -20,7 +20,7 @@ const StudentProfile = () => {
   });
 
   const { data: allPayments, isPending } = useQuery({
-    queryKey: ["all-Payments"],
+    queryKey: ["all-Payments", user?.email],
     initialData: [],
     enabled: !loading && !!user?.email,
     queryFn: async () => {
@@ -31,17 +31,16 @@ const StudentProfile = () => {
     },
   });
 
-  // const { data: submittedAssignments } = useQuery({
-  //   queryKey: ["submitted-assignments"],
-  //   initialData: {},
-  //   enabled: !loading && !!user?.email,
-  //   queryFn: async () => {
-  //     const res = await axiosPublic.get(
-  //       `/api/v1/submitted-assignments?email=${user?.email}`
-  //     );
-  //     return res.data;
-  //   },
-  // });
+  const { data: submittedAssignments } = useQuery({
+    queryKey: ["submitted-assignments", user?.email],
+    enabled: !loading && !!user?.email,
+    queryFn: async () => {
+      const res = await axiosPublic.get(
+        `/api/v1/submitted-assignments?email=${user?.email}`
+      );
+      return res.data;
+    },
+  });
 
   const totalCost = allPayments?.reduce(
     (total, item) => total + item?.price,
@@ -57,10 +56,10 @@ const StudentProfile = () => {
           <h1 className="text-2xl font-semibold my-5">
             Welcome Back, {user?.displayName}
           </h1>
-          <div className="flex flex-col lg:flex-row">
+          <div className="flex flex-col lg:flex-row gap-10 items-center justify-around mt-16">
             <div>
               <img
-                className="rounded-full"
+                className="rounded-full w-24 h-24"
                 src={userInfo?.photo_url}
                 alt={user?.displayName}
               />
@@ -85,7 +84,7 @@ const StudentProfile = () => {
               <div className="bg-purple-500 rounded-lg h-[100px] flex justify-center p-3 items-center text-white font-medium text-2xl">
                 <h2 className="">
                   Assignments Submitted{" "}
-                  <p className="text-center">${totalCost}</p>
+                  {/* <p className="text-center">{submittedAssignments}</p> */}
                 </h2>
               </div>
             </div>

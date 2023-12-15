@@ -16,8 +16,6 @@ const TeacherRequest = () => {
     },
   });
 
-  const [status, setStatus] = useState("pending");
-
   return (
     <div>
       <h2 className="text-2xl font-semibold text-center mt-10">
@@ -76,9 +74,6 @@ const TeacherRequest = () => {
                 </th>
 
                 <th scope="col" className="px-6 py-3">
-                  Status
-                </th>
-                <th scope="col" className="px-6 py-3">
                   Action
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -112,22 +107,22 @@ const TeacherRequest = () => {
                   <td className="text-base ">{item?.title}</td>
 
                   <td className="px-6 py-4">
-                    <h2>{item?.status}</h2>
-                  </td>
-
-                  <td className={`px-6 py-4}`}>
                     <div
-                      className={`${!item?.status === "pending" && "hidden"}`}
+                      className={`${
+                        item?.status === "rejected" ? "hidden" : "block"
+                      }`}
                     >
-                      <TeacherApprove setStatus={setStatus} item={item} />
+                      <TeacherApprove item={item} />
                     </div>
                   </td>
 
-                  <td className={`px-6 py-4 ${item?.status && "disabled"}`}>
+                  <td className="px-6 py-4">
                     <div
-                      className={`${!item?.status === "pending" && "hidden"}`}
+                      className={`${
+                        item?.status === "approved" ? "hidden" : "block"
+                      }`}
                     >
-                      <TeacherReject setStatus={setStatus} item={item} />
+                      <TeacherReject item={item} />
                     </div>
                   </td>
                 </tr>

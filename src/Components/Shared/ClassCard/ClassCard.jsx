@@ -39,7 +39,13 @@ const classCard = ({ item }) => {
             <Details />
           </Link>
         ) : (
-          <h2 className="font-medium">Request under review</h2>
+          <div>
+            {item?.status === "rejected" ? (
+              <h2 className="font-medium">Request rejected</h2>
+            ) : (
+              <h2 className="font-medium">Request under review</h2>
+            )}
+          </div>
         )}
       </div>
     </div>

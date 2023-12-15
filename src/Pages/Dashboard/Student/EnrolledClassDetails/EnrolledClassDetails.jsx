@@ -4,15 +4,18 @@ import { useParams } from "react-router-dom";
 import moment from "moment";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useClass from "../../../../hooks/useClass";
+
 import Evaluation from "../../../../Components/Evaluation/Evaluation";
 import useAuth from "../../../../hooks/useAuth";
 
 const EnrolledClassDetails = () => {
   const axiosPublic = useAxiosPublic();
-  const [, , refetch] = useClass();
   const [assignmentFile, setAssignmentFile] = useState(null);
   const { user } = useAuth();
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  console.log(isSubmitted);
+
+  // console.log(myAssignemnt);
 
   const { id } = useParams();
   const { data: assignments = [] } = useQuery({
@@ -23,16 +26,15 @@ const EnrolledClassDetails = () => {
     },
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = (_id) => {
     const formData = new FormData();
     formData.append("myFile", assignmentFile);
-
-    console.log(formData);
-    console.log(assignmentFile);
 
     const assignmentInfo = {
       email: user?.email,
       assignment_name: assignmentFile?.name,
+      assignmentId: _id,
+      approved: "yes",
     };
 
     axiosPublic.patch(`/api/v1/update-assignment/${id}`).then(() => {
@@ -42,9 +44,12 @@ const EnrolledClassDetails = () => {
           if (res.data.insertedId) {
             toast.success("Assignment Submssion Done!");
           }
-          refetch();
         });
     });
+
+    axiosPublic
+      .get(`/api/v1/submitted-assignments?email=${user?.email}&id=${_id}`)
+      .then(() => setIsSubmitted(true));
   };
 
   return (
@@ -100,26 +105,25 @@ const EnrolledClassDetails = () => {
                   <input
                     onChange={(e) => setAssignmentFile(e.target.files[0])}
                     type="file"
+                    required
                     className="rounded-lg"
                   />
                 </td>
 
                 <td className="px-6 py-4">
-                  {moment().isBefore(item?.deadline) && (
+                  {moment().isBefore(item?.deadline) ? (
                     <div>
-                      {item?.PDA ? (
-                        <h2 className="text-green-500 font-medium">
-                          Submitted
-                        </h2>
-                      ) : (
-                        <button
-                          onClick={handleSubmit}
-                          className="p-3 font-medium bg-blue-600 rounded-lg text-white"
-                        >
-                          Submit
-                        </button>
-                      )}
+                      <button
+                        onClick={() => handleSubmit(item?._id)}
+                        className="p-3 font-medium bg-blue-600 rounded-lg text-white"
+                      >
+                        Submit
+                      </button>
                     </div>
+                  ) : (
+                    <h2 className="text-red-500 font-medium">
+                      Deadline Expired
+                    </h2>
                   )}
                 </td>
               </tr>

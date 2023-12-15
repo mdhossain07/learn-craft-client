@@ -19,8 +19,6 @@ const CheckoutForm = () => {
   const [carts] = useCart();
   const navigate = useNavigate();
 
-  // console.log(carts);
-
   // const totalCost = parseFloat(carts?.price);
   // // console.log(totalCost);
 
