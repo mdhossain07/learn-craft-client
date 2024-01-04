@@ -1,4 +1,4 @@
-import { useRouteError } from "react-router-dom";
+import { Link, useRouteError } from "react-router-dom";
 import errorImage from "../../assets/images/errorImage.svg";
 
 const ErrorPage = () => {
@@ -14,9 +14,11 @@ const ErrorPage = () => {
       )}
 
       <div className="flex justify-center my-10">
-        <button className="btn text-xl bg-blue-500 rounded-md px-5 py-2 text-white">
-          Go Back
-        </button>
+        <Link to="/">
+          <button className="btn text-xl bg-blue-500 rounded-md px-5 py-2 text-white">
+            Go Back
+          </button>
+        </Link>
       </div>
     </div>
   );

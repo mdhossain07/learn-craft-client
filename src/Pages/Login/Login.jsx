@@ -15,13 +15,14 @@ const Login = () => {
     },
     onSubmit: (values) => {
       // console.log(values);
+      const toastId = toast.loading("logging in");
       signIn(values.email, values.password)
         .then(() => {
-          toast.success("User Logged In");
+          toast.success("User Logged In", { id: toastId });
           naviagte("/");
         })
         .catch((err) => {
-          toast.error(err);
+          toast.error(err, { id: toastId });
         });
     },
   });
