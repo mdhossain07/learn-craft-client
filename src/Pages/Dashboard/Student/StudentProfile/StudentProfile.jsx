@@ -42,6 +42,8 @@ const StudentProfile = () => {
     },
   });
 
+  console.log(submittedAssignments);
+
   const totalCost = allPayments?.reduce(
     (total, item) => total + item?.price,
     0

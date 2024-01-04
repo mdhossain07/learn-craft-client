@@ -25,6 +25,7 @@ import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile/AdminProfile";
 import StudentProfile from "../Pages/Dashboard/Student/StudentProfile/StudentProfile";
 import EnrolledClassDetails from "../Pages/Dashboard/Student/EnrolledClassDetails/EnrolledClassDetails";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import Assignments from "../Pages/Dashboard/Student/Assignments/Assignments";
 
 const routes = createBrowserRouter([
   {
@@ -134,6 +135,10 @@ const routes = createBrowserRouter([
       {
         path: "enrolled-class/:id",
         element: <EnrolledClassDetails />,
+      },
+      {
+        path: "assignments/:id",
+        element: <Assignments />,
       },
     ],
   },

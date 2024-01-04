@@ -38,7 +38,7 @@ const EnrollClass = () => {
                 Instructor Name: {item.instructor_name}
               </p>
 
-              <Link to={`/student/enrolled-class/${item?._id}`}>
+              <Link to={`/student/assignments/${item.classId}`}>
                 <button className="btn bg-[#0766AD] w-full mt-4 text-white p-3 rounded-lg">
                   Continue Course
                 </button>
