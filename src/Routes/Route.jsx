@@ -24,11 +24,13 @@ import EnrollClass from "../Pages/Dashboard/Student/EnrollClass/EnrollClass";
 import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile/AdminProfile";
 import StudentProfile from "../Pages/Dashboard/Student/StudentProfile/StudentProfile";
 import EnrolledClassDetails from "../Pages/Dashboard/Student/EnrolledClassDetails/EnrolledClassDetails";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
