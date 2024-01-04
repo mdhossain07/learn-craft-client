@@ -13,6 +13,8 @@ const Classes = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [sortOptions, setSortOptions] = useState("All Courses");
 
+  console.log(sortOptions);
+
   const { data: approvedClass, isLoading } = useQuery({
     queryKey: ["approved-class"],
     initialData: [],
@@ -53,7 +55,7 @@ const Classes = () => {
     } else if (sortOptions === "Low To High") {
       setSearchResults(descSort);
     }
-  }, [approvedClass, asecSort, descSort, sortOptions]);
+  }, [approvedClass, sortOptions, asecSort, descSort]);
 
   return (
     <>

@@ -12,9 +12,9 @@ const HeaderSlider = () => {
               Your Online Training Journey Begins Here
             </h2>
             <p className="text-sm ">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-              est officiis tempora similique maiores incidunt voluptatem eum
-              facilis veritatis? Necessitatibus?
+              Learn Craft provides career oriented premium courses that help
+              students to enhance their skills & thrive in their academic &
+              career fields.
             </p>
             <div className="flex justify-center lg:justify-start gap-10">
               <Link to="/register">
