@@ -2,10 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import TeacherApprove from "../../../../Components/Approved/TeacherApprove/TeacherApprove";
 import TeacherReject from "../../../../Components/TeacherReject/TeacherReject";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const TeacherRequest = () => {
   const axiosSecure = useAxiosSecure();
+
+  useEffect(() => {
+    document.title = "Learn Craft - Teacher Request";
+  }, []);
 
   const { data: teachers } = useQuery({
     queryKey: ["teacher-request"],

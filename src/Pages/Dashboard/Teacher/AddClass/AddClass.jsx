@@ -13,6 +13,10 @@ const AddClass = () => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title = "Learn Craft - Add Class";
+  }, []);
+
   const [myImage, setMyImage] = useState("");
   const [status, setStatus] = useState("");
 

@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import useAuth from "../../../../hooks/useAuth";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useQuery } from "@tanstack/react-query";
 
@@ -14,6 +14,10 @@ const UpdateClass = () => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const { id } = useParams();
+
+  useEffect(() => {
+    document.title = "Learn Craft - Update Class";
+  }, []);
 
   const { data: classInfo } = useQuery({
     queryKey: ["classInfo"],

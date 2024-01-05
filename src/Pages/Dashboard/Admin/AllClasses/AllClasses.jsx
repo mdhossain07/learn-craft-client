@@ -1,9 +1,14 @@
 import useClass from "../../../../hooks/useClass";
 import Approved from "../../../../Components/Approved/Approved";
 import Reject from "../../../../Components/Reject/Reject";
+import { useEffect } from "react";
 
 const AllClasses = () => {
   const [classes] = useClass();
+
+  useEffect(() => {
+    document.title = "Learn Craft - All Classes";
+  }, []);
 
   return (
     <div>

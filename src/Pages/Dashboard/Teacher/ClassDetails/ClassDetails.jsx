@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
@@ -10,6 +10,10 @@ const ClassDetails = () => {
   const axiosPublic = useAxiosPublic();
   const [modal, setModal] = useState(false);
   const { id } = useParams();
+
+  useEffect(() => {
+    document.title = "Learn Craft - Class Details";
+  }, []);
 
   const { data } = useQuery({
     queryKey: ["single-class"],

@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import useAdmin from "../../../../hooks/useAdmin";
 
 const AdminProfile = () => {
   const [isAdmin] = useAdmin();
-  console.log(isAdmin.user);
+  // console.log(isAdmin.user);
+
+  useEffect(() => {
+    document.title = "Learn Craft - Admin Profile";
+  }, []);
   return (
     <div>
       <h2 className="text-3xl font-semibold mt-5">

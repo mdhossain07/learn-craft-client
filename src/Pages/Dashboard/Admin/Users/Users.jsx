@@ -1,9 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
 
 const Users = () => {
   // const axiosPublic = useAxiosPublic();
+
+  useEffect(() => {
+    document.title = "Learn Craft - All Users";
+  }, []);
+
   const axiosSecure = useAxiosSecure();
   const { data: users, refetch } = useQuery({
     queryKey: ["all-users"],

@@ -13,7 +13,11 @@ const Classes = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [sortOptions, setSortOptions] = useState("All Courses");
 
-  console.log(sortOptions);
+  // console.log(sortOptions);
+
+  useEffect(() => {
+    document.title = "Learn Craft - All Classes";
+  }, []);
 
   const { data: approvedClass, isLoading } = useQuery({
     queryKey: ["approved-class"],

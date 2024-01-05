@@ -2,11 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import useAuth from "../../../../hooks/useAuth";
 import useProfile from "../../../../hooks/useProfile";
+import { useEffect } from "react";
 
 const StudentProfile = () => {
   const axiosPublic = useAxiosPublic();
   const { userInfo } = useProfile();
   const { user, loading } = useAuth();
+
+  useEffect(() => {
+    document.title = "Learn Craft - Student Profile";
+  }, []);
 
   const { data: enrolledCourses } = useQuery({
     queryKey: ["enrolled-courses", user?.email],

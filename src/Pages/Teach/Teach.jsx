@@ -6,11 +6,17 @@ import useAuth from "../../hooks/useAuth";
 import Container from "../../Components/Shared/Container";
 import Cover from "../../Components/Shared/Cover/Cover";
 import teacher from "../../assets/images/Teacher-rafiki.png";
+import { useEffect } from "react";
 
 const Teach = () => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const { user } = useAuth();
+
+  useEffect(() => {
+    document.title = "Learn Craft - Join as Instructor";
+  }, []);
+
   const formik = useFormik({
     initialValues: {
       name: "",
