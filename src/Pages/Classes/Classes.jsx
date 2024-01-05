@@ -50,9 +50,9 @@ const Classes = () => {
   useEffect(() => {
     if (sortOptions === "All Courses") {
       setSearchResults(approvedClass);
-    } else if (sortOptions === "High To Low") {
-      setSearchResults(asecSort);
     } else if (sortOptions === "Low To High") {
+      setSearchResults(asecSort);
+    } else if (sortOptions === "High To Low") {
       setSearchResults(descSort);
     }
   }, [approvedClass, sortOptions, asecSort, descSort]);
@@ -70,7 +70,7 @@ const Classes = () => {
             value={sortOptions}
             onChange={(e) => setSortOptions(e.target.value)}
           >
-            <option value="All courses">All Courses</option>
+            <option value="All Courses">All Courses</option>
             <option value="Low To High">Low To High</option>
             <option value="High To Low">High To Low</option>
           </select>

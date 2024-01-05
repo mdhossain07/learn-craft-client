@@ -8,7 +8,7 @@ const Insights = () => {
       <Container>
         <SectionTitle
           heading={"Courses Insights"}
-          subHeading={"This is subheading"}
+          subHeading={"Find our courses remarks"}
         />
         <div className="flex flex-col lg:flex-row gap-16 lg:items-center">
           <div className="lg:w-1/2">

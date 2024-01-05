@@ -9,7 +9,7 @@ const Instructor = () => {
       <Container>
         <SectionTitle
           heading={"Become an Instructor"}
-          subHeading={"This is subehading"}
+          subHeading={"Join our teaching community"}
         />
         <div className="flex flex-col lg:flex-row items-center gap-10">
           <div className="lg:w-3/4">
