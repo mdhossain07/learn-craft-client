@@ -26,10 +26,8 @@ const Assignments = () => {
     .get(`/api/v1/submitted-assignments?email=${user?.email}`)
     .then((res) => {
       console.log(res.data);
+      // setIsSubmitted(true);
     });
-
-  //   console.log(assignments);
-  //   console.log(assignmentId);
 
   const handleSubmit = (_id) => {
     // console.log(_id);
@@ -43,9 +41,9 @@ const Assignments = () => {
     };
 
     axiosPublic.post("/api/v1/post-assignment", assignmentInfo).then((res) => {
-      if (res.data.result.insertedId) {
+      if (res.data.insertedId) {
         toast.success("Assignment Submssion Done!");
-        console.log(res.data.result);
+        // console.log(res.data.result);
       }
     });
   };

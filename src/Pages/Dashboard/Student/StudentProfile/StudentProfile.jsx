@@ -31,7 +31,7 @@ const StudentProfile = () => {
     },
   });
 
-  const { data: submittedAssignments } = useQuery({
+  const { data: submittedAssignments = "null" } = useQuery({
     queryKey: ["submitted-assignments", user?.email],
     enabled: !loading && !!user?.email,
     queryFn: async () => {
@@ -42,7 +42,7 @@ const StudentProfile = () => {
     },
   });
 
-  console.log(submittedAssignments);
+  console.log(submittedAssignments.count);
 
   const totalCost = allPayments?.reduce(
     (total, item) => total + item?.price,
@@ -86,7 +86,7 @@ const StudentProfile = () => {
               <div className="bg-purple-500 rounded-lg h-[100px] flex justify-center p-3 items-center text-white font-medium text-2xl">
                 <h2 className="">
                   Assignments Submitted{" "}
-                  {/* <p className="text-center">{submittedAssignments}</p> */}
+                  <p className="text-center">{submittedAssignments.count}</p>
                 </h2>
               </div>
             </div>
