@@ -5,7 +5,6 @@ const EnrolledClassDetails = () => {
   return (
     <div>
       <Assignments />
-
       <Evaluation />
     </div>
   );

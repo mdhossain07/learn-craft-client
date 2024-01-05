@@ -7,9 +7,7 @@ import moment from "moment";
 import { useParams } from "react-router-dom";
 
 const Assignments = () => {
-  //   console.log(id);
   const { id } = useParams();
-  console.log(id);
 
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
@@ -24,28 +22,32 @@ const Assignments = () => {
     },
   });
 
+  axiosPublic
+    .get(`/api/v1/submitted-assignments?email=${user?.email}`)
+    .then((res) => {
+      console.log(res.data);
+    });
+
   //   console.log(assignments);
+  //   console.log(assignmentId);
 
-  //   axiosPublic
-  //     .get(`/api/v1/submitted-assignments?email=${user?.email}&id=${id}`)
-  //     .then(() => setIsSubmitted(true));
-
-  const handleSubmit = () => {
+  const handleSubmit = (_id) => {
+    // console.log(_id);
     const formData = new FormData();
     formData.append("myFile", assignmentFile);
 
-    // const assignmentInfo = {
-    //   email: user?.email,
-    //   assignment_name: assignmentFile?.name,
-    //   assignmentId: id,
-    // };
+    const assignmentInfo = {
+      email: user?.email,
+      assignment_name: assignmentFile?.name,
+      assignmentId: _id,
+    };
 
-    // axiosPublic.post("/api/v1/post-assignment", assignmentInfo)
-    // .then((res) => {
-    //   if (res.data.insertedId) {
-    //     toast.success("Assignment Submssion Done!");
-    //   }
-    // });
+    axiosPublic.post("/api/v1/post-assignment", assignmentInfo).then((res) => {
+      if (res.data.result.insertedId) {
+        toast.success("Assignment Submssion Done!");
+        console.log(res.data.result);
+      }
+    });
   };
   return (
     <div>
