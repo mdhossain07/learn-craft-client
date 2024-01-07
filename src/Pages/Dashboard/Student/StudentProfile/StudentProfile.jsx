@@ -37,17 +37,17 @@ const StudentProfile = () => {
   });
 
   const { data: submittedAssignments = "null" } = useQuery({
-    queryKey: ["submitted-assignments", user?.email],
+    queryKey: ["assignments-count", user?.email],
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const res = await axiosPublic.get(
-        `/api/v1/submitted-assignments?email=${user?.email}`
+        `/api/v1/assignments-count?email=${user?.email}`
       );
       return res.data;
     },
   });
 
-  console.log(submittedAssignments.count);
+  console.log(submittedAssignments.result);
 
   const totalCost = allPayments?.reduce(
     (total, item) => total + item?.price,
@@ -91,7 +91,7 @@ const StudentProfile = () => {
               <div className="bg-purple-500 rounded-lg h-[100px] flex justify-center p-3 items-center text-white font-medium text-2xl">
                 <h2 className="">
                   Assignments Submitted{" "}
-                  <p className="text-center">{submittedAssignments.count}</p>
+                  <p className="text-center">{submittedAssignments.result}</p>
                 </h2>
               </div>
             </div>
