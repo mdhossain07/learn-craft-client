@@ -4,11 +4,16 @@ import useClass from "../../../../hooks/useClass";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import useAuth from "../../../../hooks/useAuth";
+import { useEffect } from "react";
 
 const TeacherClass = () => {
   const [, isLoading] = useClass();
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
+
+  useEffect(() => {
+    document.title = "Learn Craft - Teacher Class";
+  }, []);
 
   const { data: classes } = useQuery({
     queryKey: ["teacher-class", user?.email],

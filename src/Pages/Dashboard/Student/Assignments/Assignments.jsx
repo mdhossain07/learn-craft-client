@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import moment from "moment";
 import { useParams } from "react-router-dom";
+import Submission from "../../../../Components/Submission/Submission";
 
 const Assignments = () => {
   const { id } = useParams();
@@ -22,13 +23,6 @@ const Assignments = () => {
     },
   });
 
-  axiosPublic
-    .get(`/api/v1/submitted-assignments?email=${user?.email}`)
-    .then((res) => {
-      console.log(res.data);
-      // setIsSubmitted(true);
-    });
-
   const handleSubmit = (_id) => {
     // console.log(_id);
     const formData = new FormData();
@@ -43,7 +37,7 @@ const Assignments = () => {
     axiosPublic.post("/api/v1/post-assignment", assignmentInfo).then((res) => {
       if (res.data.insertedId) {
         toast.success("Assignment Submssion Done!");
-        // console.log(res.data.result);
+        console.log(res.data);
       }
     });
   };
@@ -119,12 +113,24 @@ const Assignments = () => {
                           Submisson Done
                         </h2>
                       ) : (
-                        <button
-                          onClick={() => handleSubmit(item._id)}
-                          className="p-3 font-medium bg-blue-600 rounded-lg text-white"
-                        >
-                          Submit
-                        </button>
+                        <div>
+                          {isSubmitted ? (
+                            "Submission Done"
+                          ) : (
+                            <Submission
+                              isSubmitted={isSubmitted}
+                              setIsSubmitted={setIsSubmitted}
+                              handleSubmit={handleSubmit}
+                              item={item}
+                            />
+                            // <button
+                            //   onClick={() => handleSubmit(item._id)}
+                            //   className="p-3 font-medium bg-blue-600 rounded-lg text-white"
+                            // >
+                            //   Submit
+                            // </button>
+                          )}
+                        </div>
                       )}
                     </div>
                   ) : (

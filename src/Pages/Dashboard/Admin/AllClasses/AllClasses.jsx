@@ -40,9 +40,9 @@ const AllClasses = () => {
                 <th scope="col" className="px-6 py-3">
                   Action
                 </th>
-                <th scope="col" className="px-6 py-3">
+                {/* <th scope="col" className="px-6 py-3">
                   Action
-                </th>
+                </th> */}
               </tr>
             </thead>
             <tbody>
@@ -90,7 +90,7 @@ const AllClasses = () => {
                       <Reject item={item} />
                     </div>
                   </td>
-                  <td className="px-6 py-4">
+                  {/* <td className="px-6 py-4">
                     <button
                       className={`btn p-3 font-medium bg-blue-600 rounded-lg text-white ${
                         item?.status === "approved" ? "block" : "hidden"
@@ -98,7 +98,7 @@ const AllClasses = () => {
                     >
                       Progress
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>
