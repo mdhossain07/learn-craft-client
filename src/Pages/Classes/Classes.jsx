@@ -10,56 +10,50 @@ import { useCallback, useEffect, useState } from "react";
 const Classes = () => {
   const axiosPublic = useAxiosPublic();
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [sortOptions, setSortOptions] = useState("All Courses");
-
-  // console.log(sortOptions);
+  const [allResults, setAllResults] = useState([]);
 
   useEffect(() => {
-    document.title = "Learn Craft - All Classes";
+    document.title = "Learn Craft - All Class";
   }, []);
 
-  const { data: approvedClass, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["approved-class"],
     initialData: [],
     queryFn: async () => {
       const res = await axiosPublic.get(
         `/api/v1/approved-classes?status=approved`
       );
-      return res.data;
+      setAllResults(res.data);
     },
   });
 
   const handleSearch = () => {
     axiosPublic
       .get(`/api/v1/courses/search?search=${searchTerm}`)
-      .then((res) => setSearchResults(res.data));
+      .then((res) => setAllResults(res.data));
+  };
+
+  const handleSort = (sortOptions) => {
+    if (sortOptions === "All Courses") {
+      setAllResults(allResults);
+    } else if (sortOptions === "Low To High") {
+      asecSort();
+    } else if (sortOptions === "High To Low") {
+      descSort();
+    }
   };
 
   const asecSort = useCallback(() => {
-    const result = approvedClass?.sort((a, b) => a.price - b.price);
-    return result;
-  }, [approvedClass]);
+    const updatedData = [...allResults];
+    const result = updatedData.sort((a, b) => a.price - b.price);
+    setAllResults(result);
+  }, [allResults]);
 
   const descSort = useCallback(() => {
-    const result = approvedClass?.sort((a, b) => b.price - a.price);
-    return result;
-  }, [approvedClass]);
-
-  // axiosPublic.get(`/api/v1/courses/sort?sort=${sortOptions}`).then((res) => {
-  //   console.log(res.data);
-  //   setSortedResults(res.data);
-  // });
-
-  useEffect(() => {
-    if (sortOptions === "All Courses") {
-      setSearchResults(approvedClass);
-    } else if (sortOptions === "Low To High") {
-      setSearchResults(asecSort);
-    } else if (sortOptions === "High To Low") {
-      setSearchResults(descSort);
-    }
-  }, [approvedClass, sortOptions, asecSort, descSort]);
+    const updatedData = [...allResults];
+    const result = updatedData.sort((a, b) => b.price - a.price);
+    setAllResults(result);
+  }, [allResults]);
 
   return (
     <>
@@ -70,10 +64,7 @@ const Classes = () => {
           Our Featured Courses{" "}
         </h2>
         <div className="flex gap-2 py-3 w-9/12 mx-auto my-10">
-          <select
-            value={sortOptions}
-            onChange={(e) => setSortOptions(e.target.value)}
-          >
+          <select onChange={(e) => handleSort(e.target.value)}>
             <option value="All Courses">All Courses</option>
             <option value="Low To High">Low To High</option>
             <option value="High To Low">High To Low</option>
@@ -96,7 +87,7 @@ const Classes = () => {
           <PuffLoader color="#36d7b7" />
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 justify-items-center">
-            {searchResults?.map((item) => (
+            {allResults?.map((item) => (
               <div key={item?._id}>
                 <div className="h-[480px] shadow-xl p-5 rounded-lg space-y-2">
                   <img
