@@ -16,7 +16,7 @@ const Classes = () => {
     document.title = "Learn Craft - All Class";
   }, []);
 
-  const { data, isLoading } = useQuery({
+  const { data: approvedClass, isLoading } = useQuery({
     queryKey: ["approved-class"],
     initialData: [],
     queryFn: async () => {
@@ -24,6 +24,7 @@ const Classes = () => {
         `/api/v1/approved-classes?status=approved`
       );
       setAllResults(res.data);
+      return res.data;
     },
   });
 
@@ -35,7 +36,7 @@ const Classes = () => {
 
   const handleSort = (sortOptions) => {
     if (sortOptions === "All Courses") {
-      setAllResults(allResults);
+      setAllResults(approvedClass);
     } else if (sortOptions === "Low To High") {
       asecSort();
     } else if (sortOptions === "High To Low") {
